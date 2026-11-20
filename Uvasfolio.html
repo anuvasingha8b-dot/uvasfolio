@@ -1,0 +1,2567 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anuva Singha — Operations, Information Management &amp; Creative Design</title>
+  
+  <!-- Google Fonts: Cormorant Garamond, Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Pre-configure Tailwind safely before CDN script executes -->
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#111111',
+            sakura: {
+              DEFAULT: '#F27D9C',
+              vivid: '#F06292',
+              light: '#F48FB1',
+              blush: '#FDE8EF',
+              wash: '#FFF6F9',
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          boxShadow: {
+            'ink': '4px 4px 0px 0px #111111',
+            'ink-sm': '2px 2px 0px 0px #111111',
+            'sakura': '4px 4px 0px 0px #F27D9C',
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Fallback custom theme tokens in case CDN loads asynchronously in sandboxed previews */
+    .text-ink { color: #111111; }
+    .bg-ink { background-color: #111111; }
+    .border-ink { border-color: #111111; }
+    .text-sakura { color: #F27D9C; }
+    .text-sakura-vivid { color: #F06292; }
+    .bg-sakura { background-color: #F27D9C; }
+    .bg-sakura-blush { background-color: #FDE8EF; }
+    .bg-sakura-wash { background-color: #FFF6F9; }
+    .decoration-sakura { text-decoration-color: #F27D9C; }
+    .shadow-ink { box-shadow: 4px 4px 0px 0px #111111; }
+    .shadow-ink-sm { box-shadow: 2px 2px 0px 0px #111111; }
+    .shadow-sakura { box-shadow: 4px 4px 0px 0px #F27D9C; }
+    .font-serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .font-sans { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* Editorial typography & base styling */
+    body {
+      background-color: #FFFFFF;
+      color: #111111;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background-color: #F27D9C;
+      color: #FFFFFF;
+    }
+
+    /* Custom sharp ink brush underline */
+    .ink-underline {
+      position: relative;
+      display: inline-block;
+    }
+    .ink-underline::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 3px;
+      background-color: #111111;
+      clip-path: polygon(0 40%, 15% 0%, 45% 65%, 75% 10%, 100% 50%, 95% 100%, 60% 80%, 25% 100%, 2% 85%);
+    }
+
+    /* Subtle blossom sway animation for SVG flowers */
+    @keyframes gentleBreeze {
+      0%, 100% { transform: rotate(0deg) translateY(0px); }
+      50% { transform: rotate(1.2deg) translateY(-2px); }
+    }
+    .svg-tree-sway {
+      transform-origin: 72% 95%;
+      animation: gentleBreeze 7s ease-in-out infinite;
+    }
+
+    /* Modal transitions */
+    .modal-backdrop {
+      transition: opacity 0.25s ease;
+    }
+    .modal-panel {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    }
+
+    /* Kawaii Vinyl Turntable Spin */
+    @keyframes spinVinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .vinyl-disc {
+      transform-origin: center center;
+    }
+    .vinyl-spinning {
+      animation: spinVinyl 5s linear infinite;
+    }
+    .vinyl-paused {
+      animation-play-state: paused;
+    }
+
+    /* Angled 3D Manhwa Volume Spine Effect */
+    .manhwa-book-card {
+      transform: perspective(700px) rotateY(-12deg);
+      transform-style: preserve-3d;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    }
+    .manhwa-book-card:hover {
+      transform: perspective(700px) rotateY(0deg) translateY(-6px);
+    }
+
+    /* Pullable Game Cartridges on Desk Shelf */
+    .game-cartridge {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+      cursor: pointer;
+    }
+    .game-cartridge:hover {
+      transform: translateY(-16px) scale(1.05);
+      z-index: 20;
+    }
+    .game-cartridge.active-game {
+      transform: translateY(-24px) scale(1.08);
+      box-shadow: 0 12px 25px rgba(242, 125, 156, 0.45);
+      z-index: 30;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.9; }
+      50% { opacity: 1; filter: drop-shadow(0 0 8px rgba(242, 125, 156, 0.6)); }
+    }
+    .monitor-glow {
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-white text-ink antialiased relative">
+
+  <!-- Drifting Sakura Petals Canvas Overlay (Hero & Upper Page) -->
+  <canvas id="sakuraCanvas" class="fixed inset-0 pointer-events-none z-30"></canvas>
+
+  <!-- Minimal Sticky Navigation -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-ink/15">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
+      <!-- Wordmark -->
+      <a href="#" class="group flex items-center gap-2.5 focus:outline-none">
+        <span class="font-serif text-2xl sm:text-[26px] font-bold tracking-tight text-ink">
+          Anuva Singha
+        </span>
+        <!-- Five-petal blossom dot -->
+        <svg class="w-4 h-4 text-sakura transition-transform duration-300 group-hover:rotate-45" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2c1.8 0 3.2 1.8 2.6 3.7-.3 1-.9 1.8-1.6 2.3.8-.3 1.8-.3 2.8 0 1.8.6 2.8 2.6 2.1 4.3-.4 1-1.2 1.7-2.1 2 .9.3 1.7 1 2.1 2 .7 1.7-.3 3.7-2.1 4.3-1 .3-2 .3-2.8 0 .7.5 1.3 1.3 1.6 2.3.6 1.9-.8 3.7-2.6 3.7s-3.2-1.8-2.6-3.7c.3-1 .9-1.8 1.6-2.3-.8.3-1.8.3-2.8 0-1.8-.6-2.8-2.6-2.1-4.3.4-1 1.2-1.7 2.1-2-.9-.3-1.7-1-2.1-2-.7-1.7.3-3.7 2.1-4.3 1-.3 2-.3 2.8 0-.7-.5-1.3-1.3-1.6-2.3C8.8 3.8 10.2 2 12 2z"/>
+          <circle cx="12" cy="12" r="2.2" fill="#111111"/>
+        </svg>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-5 lg:gap-6 text-sm font-medium">
+        <a href="#about" class="text-ink/80 hover:text-ink transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-sakura hover:after:w-full after:transition-all">About</a>
+        <a href="#projects" class="text-ink/80 hover:text-ink transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-sakura hover:after:w-full after:transition-all">Selected Work</a>
+        <a href="#marketing" class="text-ink/80 hover:text-ink transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-sakura hover:after:w-full after:transition-all">Posters &amp; Flyers</a>
+        <a href="#experience" class="text-ink/80 hover:text-ink transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-sakura hover:after:w-full after:transition-all">Timeline</a>
+        <a href="#skills" class="text-ink/80 hover:text-ink transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-sakura hover:after:w-full after:transition-all">Skills</a>
+        <a href="#personal" class="text-ink/80 hover:text-ink transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-sakura hover:after:w-full after:transition-all">Beyond the Resume</a>
+        <a href="#contact" class="text-ink/80 hover:text-ink transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-sakura hover:after:w-full after:transition-all">Contact</a>
+      </nav>
+
+      <!-- Controls: Mobile Menu Button Only -->
+      <div class="flex items-center gap-2 sm:gap-2.5">
+        <!-- Mobile Menu Button -->
+        <button id="mobileMenuBtn" type="button" aria-label="Toggle Menu" class="md:hidden p-2.5 rounded-lg border border-ink/20 text-ink hover:bg-sakura-blush transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-ink/15 bg-white px-5 py-4 space-y-3">
+      <a href="#about" class="mobile-nav-link block py-2 text-base font-medium text-ink hover:text-sakura-vivid">About</a>
+      <a href="#projects" class="mobile-nav-link block py-2 text-base font-medium text-ink hover:text-sakura-vivid">Selected Work</a>
+      <a href="#marketing" class="mobile-nav-link block py-2 text-base font-medium text-ink hover:text-sakura-vivid">Posters &amp; Flyers</a>
+      <a href="#experience" class="mobile-nav-link block py-2 text-base font-medium text-ink hover:text-sakura-vivid">Timeline</a>
+      <a href="#skills" class="mobile-nav-link block py-2 text-base font-medium text-ink hover:text-sakura-vivid">Core Toolkit &amp; Skills</a>
+      <a href="#personal" class="mobile-nav-link block py-2 text-base font-medium text-ink hover:text-sakura-vivid">Beyond the Resume</a>
+      <a href="#contact" class="mobile-nav-link block py-2 text-base font-medium text-ink hover:text-sakura-vivid">Contact</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- HERO SECTION WITH RIGHT-EDGE SIDE SUMI-E BRANCH & HEADSHOT FRAME -->
+    <section class="relative pt-10 pb-16 sm:pt-16 sm:pb-24 lg:pt-20 lg:pb-28 overflow-hidden">
+      
+      <!-- Sweeping Side Sumi-e Cherry Blossom Branch growing inward from the right edge -->
+      <div class="pointer-events-none select-none absolute top-0 right-0 w-[400px] sm:w-[600px] lg:w-[780px] xl:w-[900px] h-auto z-0 opacity-95" aria-hidden="true">
+        <svg viewBox="0 0 780 540" class="w-full h-auto overflow-visible svg-tree-sway">
+          <defs>
+            <!-- Five-petal cherry blossom symbol -->
+            <g id="sakura-flower">
+              <path d="M0,-14 C4,-14 7,-9 4,-4 C9,-7 14,-4 14,0 C14,4 9,7 4,4 C7,9 4,14 0,14 C-4,14 -7,9 -4,4 C-9,7 -14,4 -14,0 C-14,-4 -9,-7 -4,-4 C-7,-9 -4,-14 0,-14 Z" fill="#F27D9C"/>
+              <path d="M0,-12 C3,-12 5,-8 3,-3 C8,-5 12,-3 12,0 C12,3 8,5 3,3 C5,8 3,12 0,12 C-3,12 -5,8 -3,3 C-8,5 -12,3 -12,0 C-12,-3 -8,-5 -3,-3 C-5,-8 -3,-12 0,-12 Z" fill="#F48FB1"/>
+              <circle cx="0" cy="0" r="2.7" fill="#111111"/>
+              <circle cx="-2.2" cy="-1.5" r="0.9" fill="#111111"/>
+              <circle cx="2.3" cy="-1.2" r="0.9" fill="#111111"/>
+              <circle cx="0.5" cy="2.5" r="0.9" fill="#111111"/>
+            </g>
+
+            <!-- Floating single sakura petal -->
+            <path id="sakura-petal" d="M0,-7 C4,-5 6,0 3,5 C1,7 -1,7 -3,5 C-6,0 -4,-5 0,-7 Z" fill="#F27D9C"/>
+          </defs>
+
+          <!-- ANGULAR SUMI-E INK BRANCHES ENTERING FROM THE RIGHT MARGIN -->
+          <g fill="#111111">
+            <!-- Primary thick bough entering from right edge (x=785) sweeping left & upward toward headshot -->
+            <path d="M785,112 L785,152 C715,156 655,168 595,190 C545,208 502,238 452,254 C396,272 332,268 272,254 L152,226 L160,218 C225,234 295,246 365,240 C412,236 452,208 492,186 C446,174 396,166 348,144 C312,128 282,98 238,78 L166,52 L174,46 L252,72 C296,92 326,118 364,134 C412,154 464,160 514,172 C584,142 668,120 785,112 Z"/>
+
+            <!-- Dry-brush negative white ink streaks inside bough -->
+            <path d="M688,132 L718,128 L712,134 L682,137 Z" fill="#FFFFFF"/>
+            <path d="M552,186 L582,178 L576,184 L546,191 Z" fill="#FFFFFF"/>
+            <path d="M332,248 L362,244 L356,250 L326,253 Z" fill="#FFFFFF"/>
+
+            <!-- Upper Crown Calligraphic Twigs reaching toward top-center & headshot -->
+            <path d="M478,162 L418,114 L362,88 L286,74 L288,69 L368,82 L426,108 L488,158 Z"/>
+            <path d="M396,102 L374,54 L380,53 L402,100 Z"/>
+            <path d="M326,80 L282,42 L287,39 L332,77 Z"/>
+            <path d="M566,156 L518,102 L468,66 L474,62 L526,98 L576,152 Z"/>
+            <path d="M512,96 L534,48 L540,50 L518,98 Z"/>
+
+            <!-- Mid-Left Reaching Angular Branch extending closer to headshot -->
+            <path d="M324,248 L246,272 L168,268 L98,244 L102,238 L172,261 L244,265 L318,242 Z"/>
+            <path d="M196,264 L148,296 L144,291 L191,259 Z"/>
+            <path d="M254,262 L216,214 L222,212 L260,260 Z"/>
+
+            <!-- Lower Sweeping Branch curving down the right margin -->
+            <path d="M608,182 C572,226 552,276 512,318 C474,356 422,382 368,402 L371,408 C432,388 486,362 524,322 C564,282 584,232 620,186 Z"/>
+            <path d="M524,306 L478,312 L436,334 L439,338 L480,317 L526,311 Z"/>
+            <path d="M556,268 L618,296 L674,312 L672,317 L614,301 L552,273 Z"/>
+            <path d="M618,298 L644,334 L639,336 L613,300 Z"/>
+          </g>
+
+          <!-- VIBRANT SAKURA PINK BLOSSOMS -->
+          <use href="#sakura-flower" x="676" y="138" transform="scale(1.12)"/>
+          <use href="#sakura-flower" x="582" y="168" transform="scale(1.06)"/>
+          <use href="#sakura-flower" x="524" y="102" transform="scale(0.95)"/>
+          <use href="#sakura-flower" x="418" y="112" transform="scale(1.04)"/>
+          <use href="#sakura-flower" x="328" y="82" transform="scale(0.88)"/>
+          <use href="#sakura-flower" x="242" y="72" transform="scale(0.86)"/>
+          <use href="#sakura-flower" x="174" y="54" transform="scale(0.8)"/>
+          <use href="#sakura-flower" x="436" y="242" transform="scale(1.1)"/>
+          <use href="#sakura-flower" x="326" y="252" transform="scale(1.02)"/>
+          <use href="#sakura-flower" x="218" y="266" transform="scale(0.96)"/>
+          <use href="#sakura-flower" x="142" y="256" transform="scale(0.86)"/>
+          <use href="#sakura-flower" x="548" y="266" transform="scale(1.05)"/>
+          <use href="#sakura-flower" x="484" y="332" transform="scale(0.98)"/>
+          <use href="#sakura-flower" x="632" y="306" transform="scale(0.92)"/>
+          <use href="#sakura-flower" x="408" y="388" transform="scale(0.84)"/>
+
+          <!-- FLOATING & BUDDING PETALS -->
+          <use href="#sakura-petal" x="472" y="64" transform="rotate(25 472 64)"/>
+          <use href="#sakura-petal" x="378" y="54" transform="rotate(-15 378 54)"/>
+          <use href="#sakura-petal" x="284" y="42" transform="rotate(-40 284 42)"/>
+          <use href="#sakura-petal" x="186" y="52" transform="rotate(15 186 52)"/>
+          <use href="#sakura-petal" x="364" y="136" transform="rotate(45 364 136)"/>
+          <use href="#sakura-petal" x="486" y="156" transform="rotate(20 486 156)"/>
+          <use href="#sakura-petal" x="372" y="206" transform="rotate(-25 372 206)"/>
+          <use href="#sakura-petal" x="256" y="212" transform="rotate(30 256 212)"/>
+          <use href="#sakura-petal" x="158" y="222" transform="rotate(-35 158 222)"/>
+          <use href="#sakura-petal" x="102" y="242" transform="rotate(50 102 242)"/>
+          <use href="#sakura-petal" x="144" y="294" transform="rotate(25 144 294)"/>
+          <use href="#sakura-petal" x="288" y="298" transform="rotate(-20 288 298)"/>
+          <use href="#sakura-petal" x="436" y="336" transform="rotate(35 436 336)"/>
+          <use href="#sakura-petal" x="576" y="346" transform="rotate(-15 576 346)"/>
+          <use href="#sakura-petal" x="656" y="342" transform="rotate(40 656 342)"/>
+          <use href="#sakura-petal" x="356" y="418" transform="rotate(-30 356 418)"/>
+        </svg>
+      </div>
+
+      <div class="max-w-6xl mx-auto px-5 sm:px-8 relative z-10">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-8 sm:gap-10 bg-white/80 backdrop-blur-[2px] sm:bg-transparent rounded-2xl p-2 sm:p-0">
+          
+          <!-- Headshot Portrait Frame on the Left -->
+          <div class="w-full max-w-[270px] sm:max-w-[300px] shrink-0 relative">
+            <div class="relative rounded-3xl border-[2.5px] border-ink bg-white p-3 shadow-ink">
+              
+              <!-- Portrait Container (4:5 editorial ratio) -->
+              <div class="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-sakura-wash border border-ink/15 flex items-center justify-center group">
+                
+                <!-- Uploaded Headshot Image (hidden until user selects a file or saved in localStorage) -->
+                <img id="headshotPreviewImg" src="" alt="Anuva Singha Headshot" class="hidden w-full h-full object-cover object-center" />
+
+                <!-- Tasteful Sumi-e Botanical Monogram Placeholder (shown by default) -->
+                <div id="headshotPlaceholder" class="w-full h-full flex flex-col items-center justify-center p-5 text-center relative">
+                  <!-- Subtle Sumi-e Ink Ring -->
+                  <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-ink bg-white shadow-sakura flex items-center justify-center relative mb-3">
+                    <span class="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-ink">AS</span>
+                    <!-- Mini Sakura Blossom Badge -->
+                    <svg class="w-6 h-6 text-sakura absolute -top-1.5 -right-1.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 2c1.8 0 3.2 1.8 2.6 3.7-.3 1-.9 1.8-1.6 2.3.8-.3 1.8-.3 2.8 0 1.8.6 2.8 2.6 2.1 4.3-.4 1-1.2 1.7-2.1 2 .9.3 1.7 1 2.1 2 .7 1.7-.3 3.7-2.1 4.3-1 .3-2 .3-2.8 0 .7.5 1.3 1.3 1.6 2.3.6 1.9-.8 3.7-2.6 3.7s-3.2-1.8-2.6-3.7c.3-1 .9-1.8 1.6-2.3-.8.3-1.8.3-2.8 0-1.8-.6-2.8-2.6-2.1-4.3.4-1 1.2-1.7 2.1-2-.9-.3-1.7-1-2.1-2-.7-1.7.3-3.7 2.1-4.3 1-.3 2-.3 2.8 0-.7-.5-1.3-1.3-1.6-2.3C8.8 3.8 10.2 2 12 2z"/>
+                      <circle cx="12" cy="12" r="2.2" fill="#111111"/>
+                    </svg>
+                  </div>
+                  <p class="font-serif text-lg font-bold text-ink">Anuva Singha</p>
+                  <p class="font-mono text-[10px] text-ink/65 mt-0.5">NYC • Amherst • Kathmandu</p>
+                  <p class="font-mono text-[10px] uppercase tracking-wider text-sakura-vivid mt-2.5">Click below to add your headshot</p>
+                </div>
+
+                <!-- Hover / Always-Accessible Upload Overlay Trigger -->
+                <label for="headshotFileInput" class="absolute inset-x-2.5 bottom-2.5 cursor-pointer flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-white/95 hover:bg-ink text-ink hover:text-white border-2 border-ink font-mono text-xs font-medium shadow-ink-sm transition-all">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <span id="headshotBtnText">Upload Headshot</span>
+                </label>
+                <input type="file" id="headshotFileInput" accept="image/*" class="hidden" />
+              </div>
+
+              <!-- Editorial Caption Bar inside Frame -->
+              <div class="pt-2.5 px-1 flex items-center justify-between text-xs font-mono">
+                <span class="text-ink font-semibold">Anuva (Uva) Singha</span>
+                <button id="resetHeadshotBtn" type="button" class="hidden text-[11px] text-sakura-vivid hover:underline">Reset</button>
+                <span id="headshotTag" class="text-ink/60">PORTRAIT</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Name & Eyebrow Block Lowered Below the Branch on the Right -->
+          <div class="space-y-4 sm:text-right sm:pt-40 lg:pt-56">
+            <!-- Eyebrow Tag -->
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-sakura-blush border border-ink/15">
+              <span class="w-2 h-2 rounded-full bg-sakura-vivid"></span>
+              <span class="font-mono text-[11px] sm:text-xs font-medium tracking-wider uppercase text-ink">
+                ISENBERG OIM ’29 • OPERATIONS &amp; CREATIVE DESIGN
+              </span>
+            </div>
+
+            <!-- Editorial Serif Headline -->
+            <h1 class="font-serif text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.08] tracking-tight text-ink">
+              Anuva Singha
+            </h1>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Sumi-e Horizontal Ink Brush Divider -->
+      <div class="max-w-6xl mx-auto px-5 sm:px-8 mt-14 sm:mt-20">
+        <div class="flex items-center gap-4">
+          <div class="h-[2px] flex-1 bg-ink"></div>
+          <svg class="w-6 h-6 text-sakura shrink-0" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2c1.8 0 3.2 1.8 2.6 3.7-.3 1-.9 1.8-1.6 2.3.8-.3 1.8-.3 2.8 0 1.8.6 2.8 2.6 2.1 4.3-.4 1-1.2 1.7-2.1 2 .9.3 1.7 1 2.1 2 .7 1.7-.3 3.7-2.1 4.3-1 .3-2 .3-2.8 0 .7.5 1.3 1.3 1.6 2.3.6 1.9-.8 3.7-2.6 3.7s-3.2-1.8-2.6-3.7c.3-1 .9-1.8 1.6-2.3-.8.3-1.8.3-2.8 0-1.8-.6-2.8-2.6-2.1-4.3.4-1 1.2-1.7 2.1-2-.9-.3-1.7-1-2.1-2-.7-1.7.3-3.7 2.1-4.3 1-.3 2-.3 2.8 0-.7-.5-1.3-1.3-1.6-2.3C8.8 3.8 10.2 2 12 2z"/>
+            <circle cx="12" cy="12" r="2.2" fill="#111111"/>
+          </svg>
+          <div class="h-[2px] w-16 sm:w-28 bg-ink"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-16 sm:py-24 relative">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          
+          <!-- Section Heading Column (4 cols) -->
+          <div class="lg:col-span-4">
+            <span class="font-mono text-xs uppercase tracking-widest text-sakura-vivid font-semibold block mb-2">01 / PHILOSOPHY &amp; BACKGROUND</span>
+            <h2 class="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-ink leading-tight">
+              Driven by efficiency, structured analysis, and purposeful design.
+            </h2>
+
+            <!-- Decorative Sumi-e Twig Accent -->
+            <div class="mt-8 hidden lg:block">
+              <svg viewBox="0 0 220 90" class="w-48 h-auto overflow-visible" aria-hidden="true">
+                <path d="M5,75 L72,56 L138,24 L195,8 L197,11 L141,28 L75,61 L6,79 Z" fill="#111111"/>
+                <path d="M98,42 L124,14 L127,16 L101,44 Z" fill="#111111"/>
+                <use href="#sakura-flower" x="142" y="25" transform="scale(0.75)"/>
+                <use href="#sakura-flower" x="195" y="10" transform="scale(0.65)"/>
+                <use href="#sakura-petal" x="165" y="42" transform="rotate(30 165 42)"/>
+                <use href="#sakura-petal" x="115" y="58" transform="rotate(-20 115 58)"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Editorial Two-Column Narrative (8 cols) -->
+          <div class="lg:col-span-8 space-y-6 text-ink/85 text-base sm:text-[17px] leading-relaxed">
+            <p>
+              I’m <strong class="text-ink font-semibold">Anuva Singha</strong>, an Operations &amp; Information Management undergraduate at the <strong class="text-ink font-semibold">Isenberg School of Management, UMass Amherst (Class of 2029)</strong>. My background spans student leadership, public relations, and creative design.
+            </p>
+            <p>
+              From designing sustainable couture for Junk Kouture to supporting campus welcome initiatives, ambassador outreach, and PR campaigns, I enjoy bringing structured organization and thoughtful visual communication to every project.
+            </p>
+
+            <!-- Editorial Highlight Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+              <div class="p-5 rounded-2xl border-2 border-ink bg-white shadow-ink-sm">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-mono text-xs uppercase font-medium px-2.5 py-0.5 rounded-full bg-sakura-blush text-ink">Academic Focus</span>
+                  <span class="font-mono text-xs text-ink/60">2025 — 2029</span>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-ink">Isenberg OIM Program</h3>
+                <p class="text-sm text-ink/75 mt-1.5 leading-relaxed">
+                  Focusing on operations management, business analytics, data systems, and optimization methodologies.
+                </p>
+              </div>
+
+              <div class="p-5 rounded-2xl border-2 border-ink bg-sakura-wash shadow-ink-sm">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-mono text-xs uppercase font-medium px-2.5 py-0.5 rounded-full bg-white border border-ink/20 text-ink">Creative Direction</span>
+                  <span class="font-mono text-xs text-ink/60">Design &amp; Collateral</span>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-ink">Visual Communication</h3>
+                <p class="text-sm text-ink/75 mt-1.5 leading-relaxed">
+                  Crafting professional flyers, posters, and digital graphics with a strong eye for layout, typography, and visual hierarchy.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTED WORK: PROJECTS & OPPORTUNITIES -->
+    <section id="projects" class="py-16 sm:py-24 bg-sakura-wash/60 border-y border-ink/15">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        
+        <!-- Section Header + Add Project / Opportunity CTA -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <span class="font-mono text-xs uppercase tracking-widest text-sakura-vivid font-semibold block mb-2">02 / SELECTED WORK</span>
+            <h2 class="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-ink leading-tight">
+              Projects &amp; Opportunities
+            </h2>
+            <p class="text-sm sm:text-base text-ink/75 mt-2 max-w-2xl">
+              Highlights across operations &amp; analytics, public relations, sustainable design (Junk Kouture), and open roles or collaborations. Add new projects or opportunities below.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3 shrink-0">
+            <button type="button" onclick="openJkUploadModal()" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-ink text-white font-mono text-xs font-medium border-2 border-ink shadow-sakura hover:bg-sakura hover:text-ink transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+              </svg>
+              <span>Add Project / Opportunity</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Projects & Opportunities Showcase Grid -->
+        <div id="jkShowcaseContainer">
+          <!-- Rendered via JS -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MINI MARKETING PORTFOLIO: POSTERS & FLYERS GALLERY -->
+    <section id="marketing" class="py-16 sm:py-24 bg-white border-b border-ink/15 relative">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        
+        <!-- Header + Upload Poster/Flyer CTA -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <span class="font-mono text-xs uppercase tracking-widest text-sakura-vivid font-semibold block mb-2">03 / MINI MARKETING PORTFOLIO</span>
+            <h2 class="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-ink leading-tight">
+              Posters &amp; Flyers — Visual Campaigns
+            </h2>
+            <p class="text-sm sm:text-base text-ink/75 mt-2 max-w-2xl">
+              Print and digital promotional collateral designed for campus initiatives, global sustainable design showcases, and community events. Click any piece to inspect full-bleed or upload your own posters below.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-3 shrink-0">
+            <button type="button" onclick="openUploadPosterModal()" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-ink text-white font-mono text-xs font-medium border-2 border-ink shadow-sakura hover:bg-sakura hover:text-ink transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+              </svg>
+              <span>Add Poster / Flyer</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- THEATER PROSCENIUM STAGE HIGHLIGHT -->
+        <div class="mb-12 sm:mb-16">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+            <div class="inline-flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-sakura-vivid"></span>
+              <span class="font-mono text-xs font-semibold uppercase tracking-wider text-ink">Featured Campaign • Poster &amp; Description</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="stagePrevBtn" type="button" onclick="prevStagePoster()" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-ink bg-white hover:bg-sakura-blush font-mono text-[11px] font-medium text-ink transition-colors">
+                <span>← Prev</span>
+              </button>
+              <button id="stageNextBtn" type="button" onclick="nextStagePoster()" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-ink bg-white hover:bg-sakura-blush font-mono text-[11px] font-medium text-ink transition-colors">
+                <span>Next →</span>
+              </button>
+              <button id="stageInspectBtn" type="button" onclick="inspectCurrentStagePoster()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-ink bg-sakura-blush hover:bg-ink hover:text-white font-mono text-[11px] font-medium text-ink transition-colors">
+                <span>Inspect Full ↗</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Clean Regular Poster & Description Frame -->
+          <div class="rounded-3xl border-[2.5px] border-ink bg-sakura-wash/70 shadow-ink p-5 sm:p-8 lg:p-10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center">
+              
+              <!-- Regular Poster Frame (6 cols) -->
+              <div class="md:col-span-6 flex justify-center">
+                <div id="stagePosterFrame" onclick="inspectCurrentStagePoster()" class="cursor-pointer group relative w-full max-w-[270px] sm:max-w-[300px] aspect-[3/4] rounded-2xl border-[2.5px] border-ink bg-white p-2.5 shadow-ink-sm hover:scale-[1.015] transition-transform duration-300">
+                  <div id="stagePosterArtwork" class="w-full h-full rounded-xl overflow-hidden border border-ink/20">
+                    <!-- Rendered by JS -->
+                  </div>
+                  <span class="absolute bottom-4 right-4 px-2.5 py-1 rounded-lg bg-ink text-white font-mono text-[10px] opacity-95 group-hover:bg-sakura group-hover:text-ink transition-colors">
+                    Click to Zoom
+                  </span>
+                </div>
+              </div>
+
+              <!-- Poster Description & Metadata Card (6 cols) -->
+              <div class="md:col-span-6 rounded-2xl border-2 border-ink bg-white p-5 sm:p-6 shadow-ink-sm space-y-4">
+                <div class="flex items-center justify-between gap-2">
+                  <span id="stagePosterCategory" class="font-mono text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-sakura-blush text-ink border border-ink/15">
+                    Poster
+                  </span>
+                  <span id="stagePosterCounter" class="font-mono text-xs text-ink/60">01 / 01</span>
+                </div>
+
+                <div>
+                  <h3 id="stagePosterTitle" class="font-serif text-2xl sm:text-3xl font-bold text-ink leading-snug">
+                    Poster Title
+                  </h3>
+                  <p id="stagePosterDesc" class="text-sm sm:text-base text-ink/80 mt-2 leading-relaxed">
+                    Poster description and design notes.
+                  </p>
+                </div>
+
+                <div class="pt-3 border-t border-ink/15 grid grid-cols-2 gap-3 font-mono text-xs">
+                  <div>
+                    <span class="text-[10px] uppercase text-ink/55 block">Tools</span>
+                    <span id="stagePosterTools" class="font-medium text-ink">Canva, Figma</span>
+                  </div>
+                  <div>
+                    <span class="text-[10px] uppercase text-ink/55 block">Format</span>
+                    <span id="stagePosterFormat" class="font-medium text-ink">Print &amp; Digital Flyer</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="experience" class="py-16 sm:py-24 relative">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="max-w-2xl mb-14">
+          <span class="font-mono text-xs uppercase tracking-widest text-sakura-vivid font-semibold block mb-2">04 / TIMELINE</span>
+          <h2 class="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-ink leading-tight">
+            Timeline
+          </h2>
+        </div>
+
+        <!-- Clean Sumi-e Ink Vertical Timeline -->
+        <div class="relative pl-8 sm:pl-12 border-l-[2.5px] border-ink space-y-10 sm:space-y-12">
+          
+          <!-- Timeline Item 1: Isenberg -->
+          <div class="relative">
+            <span class="absolute -left-[41px] sm:-left-[57px] top-1 w-4 h-4 rounded-full bg-sakura border-[2.5px] border-ink"></span>
+            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
+              <h3 class="font-serif text-2xl font-bold text-ink">Isenberg School of Management, UMass Amherst</h3>
+              <span class="font-mono text-xs px-2.5 py-0.5 rounded-full bg-sakura-blush text-ink self-start">Operations &amp; Information Management • Class of 2029</span>
+            </div>
+            <p class="text-sm font-medium text-ink/70 mb-2">Amherst, MA</p>
+            <p class="text-sm sm:text-base text-ink/80 leading-relaxed max-w-3xl">
+              Pursuing a Bachelor of Business Administration in Operations &amp; Information Management, focusing on analytical decision making, information systems, and business process efficiency.
+            </p>
+          </div>
+
+          <!-- Timeline Item 2: Isenberg Ethics Team -->
+          <div class="relative">
+            <span class="absolute -left-[41px] sm:-left-[57px] top-1 w-4 h-4 rounded-full bg-white border-[2.5px] border-ink"></span>
+            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
+              <h3 class="font-serif text-2xl font-bold text-ink">Isenberg Ethics Team</h3>
+              <span class="font-mono text-xs px-2.5 py-0.5 rounded-full bg-sakura-blush text-ink self-start">2nd Place in Division • 11th Annual Isenberg Ethics Competition</span>
+            </div>
+            <p class="text-sm font-medium text-ink/70 mb-2">Business Ethics Case Analysis &amp; Presentation</p>
+            <p class="text-sm sm:text-base text-ink/80 leading-relaxed max-w-3xl">
+              Selected to join the Isenberg Ethics Team after earning 2nd place in my division at the 11th Annual Isenberg Ethics Competition, analyzing complex organizational ethics cases and presenting structured, principled business recommendations.
+            </p>
+          </div>
+
+          <!-- Timeline Item 3: Welcome Leader -->
+          <div class="relative">
+            <span class="absolute -left-[41px] sm:-left-[57px] top-1 w-4 h-4 rounded-full bg-sakura border-[2.5px] border-ink"></span>
+            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
+              <h3 class="font-serif text-2xl font-bold text-ink">Welcome Leader</h3>
+              <span class="font-mono text-xs px-2.5 py-0.5 rounded-full bg-neutral-100 text-ink self-start">UMass Amherst</span>
+            </div>
+            <p class="text-sm font-medium text-ink/70 mb-2">Student Onboarding &amp; Campus Transition</p>
+            <p class="text-sm sm:text-base text-ink/80 leading-relaxed max-w-3xl">
+              Welcomed incoming students to campus, facilitated orientation programming, and supported new student community building and campus navigation.
+            </p>
+          </div>
+
+          <!-- Timeline Item 3: SAA Ambassador -->
+          <div class="relative">
+            <span class="absolute -left-[41px] sm:-left-[57px] top-1 w-4 h-4 rounded-full bg-sakura border-[2.5px] border-ink"></span>
+            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
+              <h3 class="font-serif text-2xl font-bold text-ink">SAA Ambassador</h3>
+              <span class="font-mono text-xs px-2.5 py-0.5 rounded-full bg-sakura-blush text-ink self-start">Student Alumni Association</span>
+            </div>
+            <p class="text-sm font-medium text-ink/70 mb-2">Alumni Relations &amp; Campus Outreach</p>
+            <p class="text-sm sm:text-base text-ink/80 leading-relaxed max-w-3xl">
+              Represented the student body at alumni and campus events, fostering connections between current students, alumni networks, and university traditions.
+            </p>
+          </div>
+
+          <!-- Timeline Item 4: BBBS PR Intern -->
+          <div class="relative">
+            <span class="absolute -left-[41px] sm:-left-[57px] top-1 w-4 h-4 rounded-full bg-white border-[2.5px] border-ink"></span>
+            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
+              <h3 class="font-serif text-2xl font-bold text-ink">BBBS PR Intern</h3>
+              <span class="font-mono text-xs px-2.5 py-0.5 rounded-full bg-neutral-100 text-ink self-start">Public Relations &amp; Gala Speaker</span>
+            </div>
+            <p class="text-sm font-medium text-ink/70 mb-2">Big Brothers Big Sisters</p>
+            <p class="text-sm sm:text-base text-ink/80 leading-relaxed max-w-3xl">
+              Supported public relations, outreach campaigns, and promotional storytelling for youth mentorship programs; delivered a featured speech at the Big Brothers Big Sisters Sidewalk Gala and presented an award to the Chief HR Officer of Citibank.
+            </p>
+          </div>
+
+          <!-- Timeline Item 5: NAF Academy Speaker Series -->
+          <div class="relative">
+            <span class="absolute -left-[41px] sm:-left-[57px] top-1 w-4 h-4 rounded-full bg-sakura border-[2.5px] border-ink"></span>
+            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
+              <h3 class="font-serif text-2xl font-bold text-ink">NAF Academy Speaker Series</h3>
+              <span class="font-mono text-xs px-2.5 py-0.5 rounded-full bg-sakura-blush text-ink self-start">Mentee &amp; Coach</span>
+            </div>
+            <p class="text-sm font-medium text-ink/70 mb-2">National Academy Foundation (NAF)</p>
+            <p class="text-sm sm:text-base text-ink/80 leading-relaxed max-w-3xl">
+              Participated as both a mentee and peer coach in the NAF Academy Speaker Series, engaging with industry professionals and helping coach fellow students in career readiness and professional communication.
+            </p>
+          </div>
+
+          <!-- Timeline Item 6: Project Leadership & Creative Design (JKO High School) -->
+          <div class="relative">
+            <span class="absolute -left-[41px] sm:-left-[57px] top-1 w-4 h-4 rounded-full bg-white border-[2.5px] border-ink"></span>
+            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
+              <h3 class="font-serif text-2xl font-bold text-ink">Project Leadership &amp; Creative Design</h3>
+              <span class="font-mono text-xs px-2.5 py-0.5 rounded-full bg-neutral-100 text-ink self-start">JKO High School • School &amp; Community Initiatives</span>
+            </div>
+            <p class="text-sm font-medium text-ink/70 mb-2">JKO High School</p>
+            <p class="text-sm sm:text-base text-ink/80 leading-relaxed max-w-3xl">
+              Led school and community initiatives at JKO High School, designing promotional flyers, event posters, and visual materials to drive student participation and community engagement.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE TOOLKIT / SKILLS GRID -->
+    <section id="skills" class="py-16 sm:py-24 bg-sakura-wash/50 border-t border-ink/15">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+          <div>
+            <span class="font-mono text-xs uppercase tracking-widest text-sakura-vivid font-semibold block mb-2">05 / CAPABILITIES</span>
+            <h2 class="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-ink leading-tight">
+              Core Toolkit &amp; Competencies
+            </h2>
+          </div>
+          <p class="text-sm text-ink/70 max-w-md">
+            A balanced stack spanning operations management, data analysis, and visual design.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          
+          <!-- Category 1 -->
+          <div class="bg-white rounded-2xl border-2 border-ink p-6 shadow-ink-sm">
+            <div class="w-10 h-10 rounded-xl bg-sakura-blush border border-ink flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+              </svg>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-ink mb-3">Operations Management</h3>
+            <ul class="space-y-2 font-mono text-xs text-ink/85">
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sakura-vivid"></span>Business Process Optimization</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sakura-vivid"></span>Workflow Analysis</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sakura-vivid"></span>Supply Chain &amp; Logistics Basics</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sakura-vivid"></span>Resource Allocation</li>
+            </ul>
+          </div>
+
+          <!-- Category 2 -->
+          <div class="bg-white rounded-2xl border-2 border-ink p-6 shadow-ink-sm">
+            <div class="w-10 h-10 rounded-xl bg-sakura-blush border border-ink flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+              </svg>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-ink mb-3">Data &amp; Modeling</h3>
+            <ul class="space-y-2 font-mono text-xs text-ink/85">
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sakura-vivid"></span>Excel Spreadsheets &amp; Modeling</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sakura-vivid"></span>Relational Database Concepts</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sakura-vivid"></span>Data Analysis &amp; Interpretation</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sakura-vivid"></span>Quantitative Problem Solving</li>
+            </ul>
+          </div>
+
+          <!-- Category 3 -->
+          <div class="bg-white rounded-2xl border-2 border-ink p-6 shadow-ink-sm">
+            <div class="w-10 h-10 rounded-xl bg-sakura-blush border border-ink flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+              </svg>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-ink mb-3">Visual Design &amp; Marketing</h3>
+            <ul class="space-y-2 font-mono text-xs text-ink/85">
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sakura-vivid"></span>Poster &amp; Flyer Design</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sakura-vivid"></span>Canva Pro &amp; Layout Composition</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sakura-vivid"></span>Visual Hierarchy &amp; Branding</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sakura-vivid"></span>Creative Direction</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- GET TO KNOW ME -->
+    <section id="personal" class="py-16 sm:py-24 bg-white border-t border-ink/15 relative">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+          <div>
+            <span class="font-mono text-xs uppercase tracking-widest text-sakura-vivid font-semibold block mb-2">06 / BEYOND THE RESUME</span>
+            <h2 class="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-ink leading-tight">
+              Get to Know Me
+            </h2>
+          </div>
+        </div>
+        <!-- 1. MY JAMS: SPOTIFY-STYLE PLAYLIST PLAYER -->
+        <div class="mb-12 rounded-3xl border-2 border-ink p-6 sm:p-8 shadow-ink relative overflow-hidden" style="background: linear-gradient(135deg, #FDFBF7 0%, #F4ECE1 100%);">
+          <!-- Subtle Dot Watermark -->
+          <div class="absolute inset-0 opacity-15 pointer-events-none" style="background-image: radial-gradient(#111111 0.75px, transparent 0.75px); background-size: 16px 16px;"></div>
+          
+          <div class="relative z-10">
+            <!-- My Jams Header -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-5 mb-6 border-b border-ink/15">
+              <div>
+                <span class="font-mono text-[11px] uppercase tracking-wider text-sakura-vivid font-semibold block">SOUNDTRACK ROTATIONS</span>
+                <h3 class="font-serif text-2xl sm:text-3xl font-bold text-ink">My Jams</h3>
+              </div>
+              <button type="button" onclick="toggleMusicForm()" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-ink text-white font-mono text-xs font-medium hover:bg-sakura hover:text-ink border-2 border-ink shadow-ink-sm transition-colors">
+                <span>+ Add Song</span>
+              </button>
+            </div>
+
+            <!-- Open Spotify Playlist Container -->
+            <div class="rounded-2xl border-2 border-ink bg-[#121212] text-white p-5 sm:p-7 shadow-ink-sm space-y-6">
+              <!-- Playlist Header + Cover Upload -->
+              <div class="flex flex-col sm:flex-row sm:items-end gap-5 sm:gap-6 pb-6 border-b border-white/15">
+                <div class="relative w-32 h-32 sm:w-36 sm:h-36 rounded-2xl border-2 border-white/20 bg-[#1e1e1e] overflow-hidden shrink-0 shadow-lg group">
+                  <img id="playlistCoverImg" src="" alt="My Jams Playlist Cover" class="hidden w-full h-full object-cover" />
+                  <div id="playlistCoverPlaceholder" class="w-full h-full flex flex-col items-center justify-center p-3 text-center bg-gradient-to-br from-sakura/30 via-[#1f1f1f] to-[#141414]">
+                    <span class="font-serif text-xl font-bold text-white leading-tight">My Jams</span>
+                    <span class="font-mono text-[9px] uppercase tracking-wider text-sakura mt-1">Playlist Art</span>
+                  </div>
+                  <label for="playlistCoverFileInput" class="cursor-pointer absolute inset-x-2 bottom-2 px-2.5 py-1.5 rounded-lg bg-black/80 hover:bg-sakura text-white hover:text-ink font-mono text-[10px] font-medium text-center transition-colors">
+                    Upload Pic
+                  </label>
+                  <input type="file" id="playlistCoverFileInput" accept="image/*" class="hidden" />
+                </div>
+
+                <div class="min-w-0 flex-1 space-y-2">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="font-mono text-[10px] uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-sakura text-ink font-bold">OPEN PLAYLIST</span>
+                    <span id="playlistCountBadge" class="font-mono text-[11px] text-white/65">0 Tracks</span>
+                    <button id="resetPlaylistCoverBtn" type="button" class="hidden font-mono text-[10px] text-sakura hover:underline">Reset Cover</button>
+                  </div>
+                  <h4 id="nowSpinningTitle" class="font-serif text-2xl sm:text-3xl font-bold text-white truncate">Uva's mix</h4>
+                  <p id="nowSpinningArtist" class="font-mono text-xs text-white/70 truncate">Select or add a track below</p>
+                </div>
+              </div>
+
+              <!-- Inline Add Song Form -->
+              <form id="musicFormPanel" class="hidden p-4 sm:p-5 rounded-2xl bg-[#1c1c1c] border border-white/15 space-y-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  <input type="text" id="songTitleInput" required placeholder="Song Title" class="px-3.5 py-2.5 rounded-xl border border-white/20 focus:border-sakura focus:outline-none text-xs bg-[#121212] text-white placeholder:text-white/45" />
+                  <input type="text" id="songArtistInput" required placeholder="Artist" class="px-3.5 py-2.5 rounded-xl border border-white/20 focus:border-sakura focus:outline-none text-xs bg-[#121212] text-white placeholder:text-white/45" />
+                  <input type="text" id="songVibeInput" placeholder="Vibe / Mood (optional)" class="px-3.5 py-2.5 rounded-xl border border-white/20 focus:border-sakura focus:outline-none text-xs bg-[#121212] text-white placeholder:text-white/45" />
+                  <input type="text" id="songSpotifyUrlInput" placeholder="Spotify Link / URI or Audio URL" class="px-3.5 py-2.5 rounded-xl border border-white/20 focus:border-sakura focus:outline-none text-xs bg-[#121212] text-white placeholder:text-white/45" />
+                </div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+                  <input type="file" id="songAudioFileInput" accept="audio/*" class="w-full sm:w-auto text-[11px] font-mono text-white/80 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border file:border-sakura file:text-[10px] file:font-mono file:font-bold file:bg-sakura file:text-ink cursor-pointer" />
+                  <div class="flex items-center justify-end gap-2">
+                    <button type="button" onclick="toggleMusicForm()" class="px-3.5 py-1.5 rounded-lg font-mono text-xs text-white/70 hover:bg-white/10">Cancel</button>
+                    <button type="submit" class="px-4 py-1.5 rounded-lg bg-sakura text-ink font-mono text-xs font-bold hover:bg-sakura-vivid transition-colors">Save to Playlist</button>
+                  </div>
+                </div>
+              </form>
+
+              <!-- Playback Bar & Controls -->
+              <div class="space-y-3 bg-[#181818] border border-white/10 rounded-2xl p-4">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-2.5">
+                    <button id="prevTrackBtn" type="button" aria-label="Previous Track" class="w-9 h-9 rounded-full border border-white/25 bg-[#222222] hover:bg-white/15 text-white font-mono text-xs flex items-center justify-center transition-colors">
+                      ⏮
+                    </button>
+                    <button id="toggleVinylSpinBtn" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sakura hover:bg-sakura-vivid text-ink font-mono text-xs font-bold transition-colors">
+                      <span id="playPauseIcon">▶</span>
+                      <span id="playPauseLabel">Play</span>
+                    </button>
+                    <button id="nextTrackBtn" type="button" aria-label="Next Track" class="w-9 h-9 rounded-full border border-white/25 bg-[#222222] hover:bg-white/15 text-white font-mono text-xs flex items-center justify-center transition-colors">
+                      ⏭
+                    </button>
+                  </div>
+
+                  <div class="flex items-center gap-2 font-mono text-[11px] text-white/70">
+                    <span id="audioCurrentTime">0:00</span>
+                    <input id="audioSeekBar" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek track" class="w-28 sm:w-44 accent-[#F27D9C] cursor-pointer" />
+                    <span id="audioDurationTime">0:00</span>
+                  </div>
+                </div>
+
+                <audio id="jamsAudioElement" preload="metadata" class="hidden"></audio>
+
+                <!-- Embedded Spotify Player inside the Playlist Card -->
+                <div id="spotifyEmbedWrapper" class="hidden pt-2 space-y-2">
+                  <iframe id="spotifyEmbedIframe" src="" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="eager" class="rounded-xl bg-[#121212]"></iframe>
+                  <div class="flex items-center justify-between px-1 text-[11px] font-mono text-white/65">
+                    <span id="spotifyEmbedHint">Spotify Embed Player</span>
+                    <a id="spotifyOpenExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="text-sakura hover:underline">Open in Spotify ↗</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Playlist Track Rows -->
+              <div id="musicTrackList" class="space-y-1.5">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. MANHWA RACK -->
+        <div class="rounded-3xl border-2 border-ink bg-sakura-wash/50 p-6 sm:p-10 shadow-ink">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-6 mb-8 border-b border-ink/15">
+            <div>
+              <span class="font-mono text-[11px] uppercase tracking-wider text-sakura-vivid font-semibold block">READING SHELF</span>
+              <h3 class="font-serif text-2xl sm:text-3xl font-bold text-ink">Manhwa Rack</h3>
+            </div>
+            <button type="button" onclick="openManhwaModal()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-ink text-white font-mono text-xs font-medium border-2 border-ink shadow-ink-sm hover:bg-sakura hover:text-ink transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+              </svg>
+              <span>Add Manhwa Book</span>
+            </button>
+          </div>
+
+          <div id="manhwaShelfGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-8">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- 3. GAME RACK (WALL RACK ABOVE DESK + MONITOR SCREEN + SIDE CONTROLLER) -->
+        <div class="mt-12 rounded-3xl border-2 border-ink bg-[#12141a] text-white p-6 sm:p-10 shadow-ink relative overflow-hidden">
+          <!-- Subtle Ambient Room Wall Glow -->
+          <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(circle at 50% 45%, rgba(242, 125, 156, 0.14) 0%, rgba(18, 20, 26, 0.96) 72%);"></div>
+
+          <div class="relative z-10">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-6 mb-8 border-b border-white/15">
+              <div>
+                <span class="font-mono text-[11px] uppercase tracking-wider text-sakura font-semibold block">COUCH CO-OP &amp; SOLO</span>
+                <h3 class="font-serif text-2xl sm:text-3xl font-bold text-white">Game Rack</h3>
+              </div>
+              <button type="button" onclick="toggleGameForm()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sakura text-ink font-mono text-xs font-bold border-2 border-ink shadow-ink-sm hover:bg-sakura-vivid transition-all">
+                <span>+ Add PS5 Game</span>
+              </button>
+            </div>
+
+            <!-- Inline Add PS5 Game Form -->
+            <form id="addGameFormPanel" class="hidden mb-8 p-4 sm:p-5 rounded-2xl bg-[#1d212b] border border-white/20 space-y-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <input type="text" id="gameTitleInput" required placeholder="Game Title (e.g., Ghost of Tsushima)" class="px-3.5 py-2.5 rounded-xl border border-white/20 focus:border-sakura focus:outline-none text-xs bg-[#12141a] text-white placeholder:text-white/45" />
+                <input type="text" id="gameGenreInput" placeholder="Genre / Vibe (e.g., Action RPG)" class="px-3.5 py-2.5 rounded-xl border border-white/20 focus:border-sakura focus:outline-none text-xs bg-[#12141a] text-white placeholder:text-white/45" />
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label for="gameCoverFileInput" class="block font-mono text-[10px] uppercase tracking-wider text-white/70 mb-1">1. Rack Case Cover Pic</label>
+                  <input type="file" id="gameCoverFileInput" accept="image/*" class="w-full text-[11px] font-mono text-white/80 file:mr-2 file:py-1.5 file:px-2.5 file:rounded-lg file:border file:border-sakura file:text-[10px] file:font-mono file:font-bold file:bg-sakura file:text-ink cursor-pointer border border-dashed border-white/25 rounded-xl p-1.5 bg-[#12141a]" />
+                </div>
+                <div>
+                  <label for="gameMonitorFileInput" class="block font-mono text-[10px] uppercase tracking-wider text-sakura mb-1">2. Monitor Display Pic (On Click)</label>
+                  <input type="file" id="gameMonitorFileInput" accept="image/*" class="w-full text-[11px] font-mono text-white/80 file:mr-2 file:py-1.5 file:px-2.5 file:rounded-lg file:border file:border-sakura file:text-[10px] file:font-mono file:font-bold file:bg-sakura file:text-ink cursor-pointer border border-dashed border-sakura/40 rounded-xl p-1.5 bg-[#12141a]" />
+                </div>
+              </div>
+              <div class="flex justify-end gap-2">
+                <button type="button" onclick="toggleGameForm()" class="px-3.5 py-1.5 rounded-lg font-mono text-xs text-white/70 hover:bg-white/10">Cancel</button>
+                <button type="submit" class="px-4 py-1.5 rounded-lg bg-sakura text-ink font-mono text-xs font-bold hover:bg-sakura-vivid transition-colors">Add to Rack</button>
+              </div>
+            </form>
+
+            <!-- Upper Wall Rack (PS5 Cases) -->
+            <div class="mb-8">
+              <div class="flex items-center justify-between mb-3">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-white/55">Wall Game Rack • Click a Case to Display on Monitor</span>
+              </div>
+              <div class="rounded-2xl bg-[#191c24]/90 border border-white/10 p-4 sm:p-5">
+                <div id="ps5CasesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-5 pb-3">
+                  <!-- Rendered by JS -->
+                </div>
+                <!-- Wall Shelf Plank + Brackets -->
+                <div class="h-3.5 rounded-lg bg-gradient-to-r from-[#28221f] via-[#3d332d] to-[#28221f] border border-white/20 shadow-md"></div>
+                <div class="flex justify-around px-8">
+                  <div class="w-2.5 h-3 bg-[#101216] border-x border-b border-white/15 rounded-b"></div>
+                  <div class="w-2.5 h-3 bg-[#101216] border-x border-b border-white/15 rounded-b"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Desk Setup: Monitor Displaying Selected Game + Controller on the Side -->
+            <div class="pt-2">
+              <div class="flex flex-col items-center px-2 sm:px-6">
+                
+                <!-- Realistic Gaming Monitor on Desk -->
+                <div class="w-full max-w-2xl flex flex-col items-center">
+                  <!-- Monitor Bezel & Screen -->
+                  <div class="w-full rounded-2xl bg-gradient-to-b from-[#252932] to-[#14171d] p-2.5 sm:p-3.5 border-2 border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.65)]">
+                    <div id="gameMonitorScreen" class="monitor-glow relative aspect-video w-full rounded-xl overflow-hidden bg-[#0a0c10] border border-white/10 flex items-center justify-center">
+                      <!-- Rendered dynamically by JS when a game is selected -->
+                    </div>
+                    <!-- Bottom Monitor Chin & Power LED -->
+                    <div class="pt-2 px-2 flex items-center justify-between">
+                      <span class="font-mono text-[9px] tracking-widest uppercase text-white/40">ULTRA-WIDE OLED</span>
+                      <span class="w-2 h-2 rounded-full bg-sakura shadow-[0_0_8px_#F27D9C]"></span>
+                    </div>
+                  </div>
+                  <!-- Monitor Neck & Base Stand -->
+                  <div class="w-16 sm:w-20 h-6 bg-gradient-to-b from-[#1a1d24] to-[#101216] border-x border-white/15"></div>
+                  <div class="w-36 sm:w-44 h-2.5 rounded-t-lg bg-gradient-to-r from-[#1c2028] via-[#2c313d] to-[#1c2028] border border-white/20 shadow-md"></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- INTERACTIVE CONTACT SECTION -->
+    <section id="contact" class="py-16 sm:py-24 border-t border-ink/15 relative">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="rounded-3xl border-2 border-ink bg-white p-6 sm:p-10 lg:p-14 shadow-ink relative overflow-hidden">
+          
+          <!-- Subtle Corner Sumi-e Blossom Accent -->
+          <svg viewBox="0 0 160 140" class="hidden sm:block absolute -top-2 -right-2 w-40 h-auto pointer-events-none opacity-90" aria-hidden="true">
+            <path d="M160,18 L112,38 L68,72 L32,88 L34,92 L72,76 L116,42 L160,23 Z" fill="#111111"/>
+            <path d="M114,39 L94,12 L98,10 L118,37 Z" fill="#111111"/>
+            <use href="#sakura-flower" x="70" y="74" transform="scale(0.8)"/>
+            <use href="#sakura-flower" x="116" y="40" transform="scale(0.75)"/>
+            <use href="#sakura-petal" x="45" y="102" transform="rotate(35 45 102)"/>
+            <use href="#sakura-petal" x="88" y="96" transform="rotate(-25 88 96)"/>
+          </svg>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 relative z-10">
+            
+            <!-- Left Contact Info & Copy-to-Clipboard (5 cols) -->
+            <div class="lg:col-span-5 flex flex-col justify-between space-y-8">
+              <div>
+                <span class="font-mono text-xs uppercase tracking-widest text-sakura-vivid font-semibold block mb-2">07 / CONNECT</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ink leading-tight">
+                  Let’s collaborate on operations, analytics, or design.
+                </h2>
+                <p class="text-sm sm:text-base text-ink/75 mt-4 leading-relaxed">
+                  Open to internships, operations collaborations, design projects, and professional networking.
+                </p>
+              </div>
+
+              <!-- Direct Email Card with Copy Button -->
+              <div class="p-4 sm:p-5 rounded-2xl bg-sakura-wash border-2 border-ink space-y-3">
+                <div>
+                  <span class="font-mono text-[11px] uppercase tracking-wider text-ink/65 block mb-1">Direct Academic &amp; Portfolio Email</span>
+                  <div class="flex items-center justify-between gap-2 flex-wrap">
+                    <span id="emailAddressText" class="font-mono text-sm sm:text-base font-medium text-ink select-all">anuva.singha@umass.edu</span>
+                    <button id="copyEmailBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-ink text-white font-mono text-xs font-medium hover:bg-sakura hover:text-ink border border-ink transition-colors">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                      </svg>
+                      <span id="copyBtnLabel">Copy Email</span>
+                    </button>
+                  </div>
+                  <p id="copyFeedback" class="font-mono text-xs text-sakura-vivid font-medium mt-1.5 hidden">
+                    Copied to clipboard!
+                  </p>
+                </div>
+              </div>
+
+              <!-- Location & Social Links -->
+              <div class="flex flex-wrap items-center gap-4 text-xs font-mono text-ink/75">
+                <span class="inline-flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-sakura-vivid"></span>
+                  Amherst, MA • Isenberg ’29
+                </span>
+              </div>
+            </div>
+
+            <!-- Right Interactive Inquiry Form (7 cols) -->
+            <div class="lg:col-span-7">
+              <form id="contactForm" class="space-y-4 sm:space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label for="senderName" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Your Name</label>
+                    <input type="text" id="senderName" name="senderName" required placeholder="Name" class="w-full px-4 py-3 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none bg-white text-sm text-ink transition-colors" />
+                  </div>
+                  <div>
+                    <label for="senderEmail" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Email Address</label>
+                    <input type="email" id="senderEmail" name="senderEmail" required placeholder="email@organization.com" class="w-full px-4 py-3 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none bg-white text-sm text-ink transition-colors" />
+                  </div>
+                </div>
+
+                <div>
+                  <label for="inquiryTopic" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Topic of Inquiry</label>
+                  <select id="inquiryTopic" name="inquiryTopic" class="w-full px-4 py-3 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none bg-white text-sm text-ink transition-colors">
+                    <option value="Internship / Recruiting">Operations / Analytics Internship</option>
+                    <option value="Design Collaboration">Design &amp; Marketing Collaboration</option>
+                    <option value="General">General Networking</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="senderMessage" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Message</label>
+                  <textarea id="senderMessage" name="senderMessage" rows="4" required placeholder="Share a note about your team, project, or opportunity..." class="w-full px-4 py-3 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none bg-white text-sm text-ink transition-colors resize-none"></textarea>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
+                  <button type="submit" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-ink text-white font-medium text-sm border-2 border-ink shadow-sakura hover:bg-sakura hover:text-ink transition-all">
+                    <span>Send Message</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </button>
+
+                  <!-- Instant Confirmation Banner -->
+                  <div id="formConfirmation" class="hidden items-center gap-2 px-4 py-2.5 rounded-xl bg-sakura-blush border border-ink text-xs font-mono text-ink">
+                    <span class="w-2 h-2 rounded-full bg-sakura-vivid shrink-0"></span>
+                    <span id="formConfirmationText">Message received — thank you! Anuva will respond shortly.</span>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Minimal Sumi-e Editorial Footer -->
+  <footer class="border-t border-ink/15 py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-ink/70">
+      <div>
+        <span>© <span id="currentYear">2026</span> Anuva Singha • Isenberg School of Management ’29</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#about" class="hover:text-ink transition-colors">About</a>
+        <a href="#projects" class="hover:text-ink transition-colors">Projects &amp; Opportunities</a>
+        <a href="#marketing" class="hover:text-ink transition-colors">Posters &amp; Flyers</a>
+        <a href="#contact" class="hover:text-ink transition-colors">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ADD PROJECT OR OPPORTUNITY MODAL -->
+  <div id="jkUploadModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="jkUploadModalTitle">
+    <div id="jkUploadBackdrop" class="fixed inset-0 bg-ink/65 backdrop-blur-xs"></div>
+    <div class="relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-white rounded-3xl border-2 border-ink shadow-sakura p-6 sm:p-8">
+      <div class="flex items-start justify-between gap-4 pb-4 border-b border-ink/15">
+        <div>
+          <span class="font-mono text-xs font-medium px-2.5 py-0.5 rounded-full bg-sakura-blush text-ink inline-block mb-1">Selected Work • Projects &amp; Opportunities</span>
+          <h3 id="jkUploadModalTitle" class="font-serif text-2xl sm:text-3xl font-bold text-ink">Add Project or Opportunity</h3>
+        </div>
+        <button type="button" onclick="closeJkUploadModal()" aria-label="Close modal" class="p-2 rounded-xl border border-ink/20 hover:bg-sakura-blush text-ink transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <form id="addJkForm" class="space-y-4 pt-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="jkTypeSelect" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Entry Type</label>
+            <select id="jkTypeSelect" class="w-full px-3.5 py-2.5 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none text-sm text-ink bg-white">
+              <option value="Project">Project</option>
+              <option value="Opportunity">Opportunity</option>
+            </select>
+          </div>
+          <div>
+            <label for="jkImageFile" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Photo / Visual (Optional)</label>
+            <input type="file" id="jkImageFile" accept="image/*" class="w-full text-xs font-mono text-ink file:mr-2 file:py-1.5 file:px-2.5 file:rounded-lg file:border file:border-ink file:text-[10px] file:font-mono file:font-medium file:bg-sakura-blush file:text-ink hover:file:bg-sakura hover:file:text-white cursor-pointer border-2 border-dashed border-ink/30 rounded-xl p-1.5" />
+          </div>
+        </div>
+
+        <div>
+          <label for="jkTitleInput" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Title</label>
+          <input type="text" id="jkTitleInput" required placeholder="e.g., Isenberg Ethics Case Competition or Summer OIM Internship" class="w-full px-3.5 py-2.5 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none text-sm text-ink" />
+        </div>
+
+        <div>
+          <label for="jkMaterialsInput" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Role, Tools, or Focus Area</label>
+          <input type="text" id="jkMaterialsInput" required placeholder="e.g., Operations Analysis, Excel Modeling, or Upcycled Couture" class="w-full px-3.5 py-2.5 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none text-sm text-ink" />
+        </div>
+
+        <div>
+          <label for="jkDescInput" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Summary &amp; Key Takeaways</label>
+          <textarea id="jkDescInput" rows="3" required placeholder="Describe the project scope, outcome, or what you are looking for in this opportunity..." class="w-full px-3.5 py-2.5 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none text-sm text-ink resize-none"></textarea>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeJkUploadModal()" class="px-4 py-2.5 rounded-xl border border-ink/30 font-mono text-xs text-ink hover:bg-neutral-100">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-ink text-white font-mono text-xs font-medium border-2 border-ink shadow-sakura hover:bg-sakura hover:text-ink transition-colors">
+            Save Entry
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- POSTER / FLYER LIGHTBOX MODAL -->
+  <div id="posterLightboxModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+    <div id="lightboxBackdrop" class="fixed inset-0 bg-ink/75 backdrop-blur-xs transition-opacity"></div>
+    <div class="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white rounded-3xl border-2 border-ink shadow-sakura p-5 sm:p-8">
+      <div class="flex items-start justify-between gap-4 pb-4 border-b border-ink/15">
+        <div>
+          <span id="lightboxCategory" class="font-mono text-xs font-medium px-3 py-1 rounded-full bg-sakura-blush text-ink border border-ink/15 inline-block mb-1.5">
+            Campaign
+          </span>
+          <h3 id="lightboxTitle" class="font-serif text-2xl sm:text-3xl font-bold text-ink">
+            Poster Title
+          </h3>
+        </div>
+        <button type="button" onclick="closePosterLightbox()" aria-label="Close lightbox" class="p-2 rounded-xl border border-ink/20 hover:bg-sakura-blush text-ink transition-colors shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 py-6 items-start">
+        <!-- Poster Artwork Stage (7 cols) -->
+        <div id="lightboxArtworkStage" class="md:col-span-7 rounded-2xl border-2 border-ink bg-sakura-wash p-4 flex items-center justify-center min-h-[340px]">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Design Rationale & Metadata (5 cols) -->
+        <div class="md:col-span-5 space-y-4">
+          <div>
+            <span class="font-mono text-[11px] uppercase text-ink/60 block">Campaign &amp; Design Rationale</span>
+            <p id="lightboxDesc" class="text-sm sm:text-base text-ink/85 mt-1 leading-relaxed"></p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-sakura-wash border border-ink/15 space-y-2 font-mono text-xs">
+            <div class="flex justify-between gap-2">
+              <span class="text-ink/60">Format:</span>
+              <span id="lightboxFormat" class="text-ink font-medium text-right">Print &amp; Social Flyer</span>
+            </div>
+            <div class="flex justify-between gap-2">
+              <span class="text-ink/60">Tools:</span>
+              <span id="lightboxTools" class="text-ink font-medium text-right">Figma, Canva</span>
+            </div>
+          </div>
+          <div id="lightboxDeleteWrap" class="hidden pt-2">
+            <button id="deleteCustomPosterBtn" type="button" class="w-full px-4 py-2.5 rounded-xl border border-red-600 text-red-600 hover:bg-red-50 font-mono text-xs font-medium transition-colors">
+              Remove Uploaded Poster
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD POSTER / FLYER UPLOAD MODAL -->
+  <div id="uploadPosterModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="uploadModalTitle">
+    <div id="uploadBackdrop" class="fixed inset-0 bg-ink/65 backdrop-blur-xs"></div>
+    <div class="relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-white rounded-3xl border-2 border-ink shadow-sakura p-6 sm:p-8">
+      <div class="flex items-start justify-between gap-4 pb-4 border-b border-ink/15">
+        <div>
+          <span class="font-mono text-xs font-medium px-2.5 py-0.5 rounded-full bg-sakura-blush text-ink inline-block mb-1">Mini Marketing Portfolio</span>
+          <h3 id="uploadModalTitle" class="font-serif text-2xl sm:text-3xl font-bold text-ink">Add Poster or Flyer</h3>
+        </div>
+        <button type="button" onclick="closeUploadPosterModal()" aria-label="Close modal" class="p-2 rounded-xl border border-ink/20 hover:bg-sakura-blush text-ink transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <form id="addPosterForm" class="space-y-4 pt-5">
+        <div>
+          <label for="posterImageFile" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Poster / Flyer Image (PNG, JPG, WebP)</label>
+          <input type="file" id="posterImageFile" accept="image/*" required class="w-full text-xs font-mono text-ink file:mr-3 file:py-2 file:px-3.5 file:rounded-lg file:border file:border-ink file:text-xs file:font-mono file:font-medium file:bg-sakura-blush file:text-ink hover:file:bg-sakura hover:file:text-white cursor-pointer border-2 border-dashed border-ink/30 rounded-xl p-2.5" />
+        </div>
+
+        <div>
+          <label for="posterTitleInput" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Poster / Campaign Title</label>
+          <input type="text" id="posterTitleInput" required placeholder="e.g., Isenberg Global Trade Mixer Flyer" class="w-full px-3.5 py-2.5 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none text-sm text-ink" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="posterCategoryInput" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Category</label>
+            <input type="text" id="posterCategoryInput" required placeholder="e.g., Campus Event, PR Campaign, Gala" class="w-full px-3.5 py-2.5 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none text-sm text-ink bg-white" />
+          </div>
+          <div>
+            <label for="posterToolsInput" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Tools Used</label>
+            <input type="text" id="posterToolsInput" required placeholder="Canva, Figma, Illustrator" class="w-full px-3.5 py-2.5 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none text-sm text-ink" />
+          </div>
+        </div>
+
+        <div>
+          <label for="posterDescInput" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Brief Description &amp; Objective</label>
+          <textarea id="posterDescInput" rows="3" required placeholder="Describe the target audience, visual hierarchy choices, and distribution channel..." class="w-full px-3.5 py-2.5 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none text-sm text-ink resize-none"></textarea>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeUploadPosterModal()" class="px-4 py-2.5 rounded-xl border border-ink/30 font-mono text-xs text-ink hover:bg-neutral-100">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-ink text-white font-mono text-xs font-medium border-2 border-ink shadow-sakura hover:bg-sakura hover:text-ink transition-colors">
+            Publish to Gallery
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD MANHWA BOOK MODAL -->
+  <div id="manhwaModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="manhwaModalTitle">
+    <div id="manhwaBackdrop" class="fixed inset-0 bg-ink/65 backdrop-blur-xs"></div>
+    <div class="relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-white rounded-3xl border-2 border-ink shadow-sakura p-6 sm:p-8">
+      <div class="flex items-start justify-between gap-4 pb-4 border-b border-ink/15">
+        <div>
+          <span class="font-mono text-xs font-medium px-2.5 py-0.5 rounded-full bg-sakura-blush text-ink inline-block mb-1">Beyond the Resume</span>
+          <h3 id="manhwaModalTitle" class="font-serif text-2xl sm:text-3xl font-bold text-ink">Add Manhwa Volume</h3>
+        </div>
+        <button type="button" onclick="closeManhwaModal()" aria-label="Close modal" class="p-2 rounded-xl border border-ink/20 hover:bg-sakura-blush text-ink transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <form id="addManhwaForm" class="space-y-4 pt-5">
+        <div>
+          <label for="manhwaCoverFile" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Book Cover Image (PNG, JPG, WebP)</label>
+          <input type="file" id="manhwaCoverFile" accept="image/*" required class="w-full text-xs font-mono text-ink file:mr-3 file:py-2 file:px-3.5 file:rounded-lg file:border file:border-ink file:text-xs file:font-mono file:font-medium file:bg-sakura-blush file:text-ink hover:file:bg-sakura hover:file:text-white cursor-pointer border-2 border-dashed border-ink/30 rounded-xl p-2.5" />
+        </div>
+
+        <div>
+          <label for="manhwaTitleInput" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Manhwa Title</label>
+          <input type="text" id="manhwaTitleInput" required placeholder="e.g., Solo Leveling, Omniscient Reader..." class="w-full px-3.5 py-2.5 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none text-sm text-ink" />
+        </div>
+
+        <div>
+          <label for="manhwaGenreInput" class="block font-mono text-xs font-medium uppercase text-ink mb-1.5">Genre / Note (Optional)</label>
+          <input type="text" id="manhwaGenreInput" placeholder="e.g., Fantasy • Action • Romance" class="w-full px-3.5 py-2.5 rounded-xl border-2 border-ink/25 focus:border-ink focus:outline-none text-sm text-ink" />
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeManhwaModal()" class="px-4 py-2.5 rounded-xl border border-ink/30 font-mono text-xs text-ink hover:bg-neutral-100">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-ink text-white font-mono text-xs font-medium border-2 border-ink shadow-sakura hover:bg-sakura hover:text-ink transition-colors">
+            Add to Shelf
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Interactive JavaScript -->
+  <script>
+    // Set current year in footer safely
+    const currentYearEl = document.getElementById('currentYear');
+    if (currentYearEl) {
+      currentYearEl.textContent = new Date().getFullYear();
+    }
+
+    // ---------------------------------------------------------
+    // Selected Work: Projects & Opportunities Showcase
+    // ---------------------------------------------------------
+    const defaultSelectedWork = [
+      {
+        entryType: 'Project',
+        title: 'Isenberg Ethics Case Analysis',
+        materials: 'Division 2nd Place • Business Ethics & Strategy',
+        description: 'Analyzed complex ethical and operational trade-offs for the 11th Annual Isenberg Ethics Competition, structuring clear stakeholder recommendations and earning selection to the Isenberg Ethics Team.',
+        imageData: '',
+        isDefault: true
+      },
+      {
+        entryType: 'Project',
+        title: 'Junk Kouture Sustainable Dress Design',
+        materials: 'Upcycled Materials • Wearable Art & Construction',
+        description: 'Designed and constructed a sustainable garment for Junk Kouture, combining structural experimentation, reclaimed materials, and visual presentation.',
+        imageData: '',
+        isDefault: true
+      },
+      {
+        entryType: 'Opportunity',
+        title: 'OIM, Analytics & Creative Design Roles',
+        materials: 'Summer Internships • Campus & Brand Collaborations',
+        description: 'Open to operations & information management internships, data/process projects, and poster/flyer or visual branding collaborations.',
+        imageData: '',
+        isDefault: true
+      }
+    ];
+
+    let jkDesigns = [...defaultSelectedWork];
+    try {
+      const savedJk = localStorage.getItem('anuva_projects_opportunities');
+      if (savedJk) {
+        const parsed = JSON.parse(savedJk);
+        if (Array.isArray(parsed) && parsed.length) {
+          jkDesigns = parsed;
+        }
+      } else {
+        const legacyJk = localStorage.getItem('anuva_junk_kouture');
+        if (legacyJk) {
+          const parsedLegacy = JSON.parse(legacyJk);
+          if (Array.isArray(parsedLegacy) && parsedLegacy.length) {
+            jkDesigns = [...parsedLegacy.map(item => ({ ...item, entryType: item.entryType || 'Project' })), ...defaultSelectedWork];
+          }
+        }
+      }
+    } catch (e) {}
+
+    const jkUploadModal = document.getElementById('jkUploadModal');
+    const jkUploadBackdrop = document.getElementById('jkUploadBackdrop');
+    const addJkForm = document.getElementById('addJkForm');
+    const jkShowcaseContainer = document.getElementById('jkShowcaseContainer');
+
+    function openJkUploadModal() {
+      if (!jkUploadModal) return;
+      jkUploadModal.classList.remove('hidden');
+      jkUploadModal.classList.add('flex');
+    }
+
+    function closeJkUploadModal() {
+      if (!jkUploadModal) return;
+      jkUploadModal.classList.add('hidden');
+      jkUploadModal.classList.remove('flex');
+      if (addJkForm) addJkForm.reset();
+    }
+
+    if (jkUploadBackdrop) {
+      jkUploadBackdrop.addEventListener('click', closeJkUploadModal);
+    }
+
+    function deleteJkDesign(idx) {
+      jkDesigns.splice(idx, 1);
+      try {
+        localStorage.setItem('anuva_projects_opportunities', JSON.stringify(jkDesigns));
+      } catch (err) {}
+      renderJkShowcase();
+    }
+
+    function renderJkShowcase() {
+      if (!jkShowcaseContainer) return;
+
+      if (!jkDesigns.length) {
+        jkShowcaseContainer.innerHTML = `
+          <div onclick="openJkUploadModal()" class="cursor-pointer rounded-3xl border-2 border-dashed border-ink/35 bg-white p-10 sm:p-14 text-center shadow-ink-sm hover:border-ink hover:bg-sakura-blush/30 transition-all">
+            <p class="font-serif text-2xl sm:text-3xl font-bold text-ink">Add Projects &amp; Opportunities</p>
+            <p class="text-sm text-ink/70 max-w-md mx-auto mt-2">
+              Click "Add Project / Opportunity" to showcase your projects, roles, or open opportunities here.
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      jkShowcaseContainer.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          ${jkDesigns.map((item, idx) => {
+            const typeLabel = item.entryType || 'Project';
+            return `
+              <article class="rounded-2xl border-2 border-ink bg-white overflow-hidden shadow-ink-sm flex flex-col">
+                ${item.imageData ? `
+                  <div class="aspect-[4/3] w-full bg-sakura-wash border-b-2 border-ink overflow-hidden">
+                    <img src="${item.imageData}" alt="${item.title}" class="w-full h-full object-cover" />
+                  </div>
+                ` : ''}
+                <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                  <div class="space-y-2.5">
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="font-mono text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full ${typeLabel === 'Opportunity' ? 'bg-sakura text-ink font-semibold' : 'bg-sakura-blush text-ink'} inline-block">${typeLabel}</span>
+                      <span class="font-mono text-[11px] text-ink/50">0${idx + 1}</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-ink leading-snug">${item.title}</h3>
+                    <p class="font-mono text-xs text-sakura-vivid">${item.materials}</p>
+                    <p class="text-sm text-ink/80 leading-relaxed">${item.description}</p>
+                  </div>
+                  <div class="pt-3 border-t border-ink/15 flex justify-end">
+                    <button type="button" onclick="deleteJkDesign(${idx})" class="font-mono text-xs text-ink/60 hover:text-red-600 transition-colors">
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </article>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    if (addJkForm) {
+      addJkForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const typeSelect = document.getElementById('jkTypeSelect');
+        const fileInput = document.getElementById('jkImageFile');
+        const titleInput = document.getElementById('jkTitleInput');
+        const materialsInput = document.getElementById('jkMaterialsInput');
+        const descInput = document.getElementById('jkDescInput');
+
+        const entryType = typeSelect ? typeSelect.value : 'Project';
+        const title = titleInput ? titleInput.value.trim() : '';
+        const materials = materialsInput ? materialsInput.value.trim() : '';
+        const description = descInput ? descInput.value.trim() : '';
+        const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+
+        if (!title || !materials || !description) return;
+
+        const saveEntry = (imageData) => {
+          jkDesigns.unshift({ entryType, title, materials, description, imageData: imageData || '' });
+          try {
+            localStorage.setItem('anuva_projects_opportunities', JSON.stringify(jkDesigns));
+          } catch (err) {}
+          renderJkShowcase();
+          closeJkUploadModal();
+        };
+
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (evt) {
+            saveEntry(evt.target && evt.target.result ? evt.target.result : '');
+          };
+          reader.readAsDataURL(file);
+        } else {
+          saveEntry('');
+        }
+      });
+    }
+
+    renderJkShowcase();
+
+    // ---------------------------------------------------------
+    // Posters & Flyers Stage, Lightbox & Upload Modal
+    // ---------------------------------------------------------
+    let uploadedPosters = [];
+    try {
+      const savedPosters = localStorage.getItem('anuva_posters_flyers');
+      if (savedPosters) uploadedPosters = JSON.parse(savedPosters);
+    } catch (e) {}
+
+    let currentStageIdx = 0;
+    const stagePosterArtwork = document.getElementById('stagePosterArtwork');
+    const stagePosterCategory = document.getElementById('stagePosterCategory');
+    const stagePosterCounter = document.getElementById('stagePosterCounter');
+    const stagePosterTitle = document.getElementById('stagePosterTitle');
+    const stagePosterDesc = document.getElementById('stagePosterDesc');
+    const stagePosterTools = document.getElementById('stagePosterTools');
+    const stagePosterFormat = document.getElementById('stagePosterFormat');
+    const stagePrevBtn = document.getElementById('stagePrevBtn');
+    const stageNextBtn = document.getElementById('stageNextBtn');
+
+    const uploadPosterModal = document.getElementById('uploadPosterModal');
+    const uploadBackdrop = document.getElementById('uploadBackdrop');
+    const addPosterForm = document.getElementById('addPosterForm');
+
+    const posterLightboxModal = document.getElementById('posterLightboxModal');
+    const lightboxBackdrop = document.getElementById('lightboxBackdrop');
+    const lightboxCategory = document.getElementById('lightboxCategory');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxArtworkStage = document.getElementById('lightboxArtworkStage');
+    const lightboxDesc = document.getElementById('lightboxDesc');
+    const lightboxFormat = document.getElementById('lightboxFormat');
+    const lightboxTools = document.getElementById('lightboxTools');
+    const lightboxDeleteWrap = document.getElementById('lightboxDeleteWrap');
+    const deleteCustomPosterBtn = document.getElementById('deleteCustomPosterBtn');
+
+    function openUploadPosterModal() {
+      if (!uploadPosterModal) return;
+      uploadPosterModal.classList.remove('hidden');
+      uploadPosterModal.classList.add('flex');
+    }
+
+    function closeUploadPosterModal() {
+      if (!uploadPosterModal) return;
+      uploadPosterModal.classList.add('hidden');
+      uploadPosterModal.classList.remove('flex');
+      if (addPosterForm) addPosterForm.reset();
+    }
+
+    if (uploadBackdrop) {
+      uploadBackdrop.addEventListener('click', closeUploadPosterModal);
+    }
+
+    function renderStagePoster() {
+      if (!stagePosterArtwork) return;
+
+      if (!uploadedPosters.length) {
+        currentStageIdx = 0;
+        stagePosterArtwork.innerHTML = `
+          <div onclick="openUploadPosterModal()" class="cursor-pointer w-full h-full bg-sakura-wash flex flex-col items-center justify-center p-6 text-center">
+            <p class="font-serif text-xl font-bold text-ink">No Posters Uploaded Yet</p>
+            <p class="font-mono text-[11px] text-ink/65 mt-1">Click "+ Add Poster / Flyer" to spotlight your work here.</p>
+          </div>
+        `;
+        if (stagePosterCategory) stagePosterCategory.textContent = 'Empty Stage';
+        if (stagePosterCounter) stagePosterCounter.textContent = '00 / 00';
+        if (stagePosterTitle) stagePosterTitle.textContent = 'Upload a Poster or Flyer';
+        if (stagePosterDesc) stagePosterDesc.textContent = 'Add a poster or flyer image to showcase it on the featured campaign stage.';
+        if (stagePosterTools) stagePosterTools.textContent = 'Visual Collateral';
+        if (stagePosterFormat) stagePosterFormat.textContent = 'Print & Digital';
+        return;
+      }
+
+      if (currentStageIdx < 0 || currentStageIdx >= uploadedPosters.length) {
+        currentStageIdx = 0;
+      }
+
+      const poster = uploadedPosters[currentStageIdx];
+      stagePosterArtwork.innerHTML = poster.imageData
+        ? `<img src="${poster.imageData}" alt="${poster.title}" class="w-full h-full object-cover" />`
+        : `<div class="w-full h-full bg-sakura-blush flex items-center justify-center p-4 font-serif font-bold text-ink">${poster.title}</div>`;
+
+      if (stagePosterCategory) stagePosterCategory.textContent = poster.category || 'Poster';
+      if (stagePosterCounter) {
+        const cur = String(currentStageIdx + 1).padStart(2, '0');
+        const tot = String(uploadedPosters.length).padStart(2, '0');
+        stagePosterCounter.textContent = `${cur} / ${tot}`;
+      }
+      if (stagePosterTitle) stagePosterTitle.textContent = poster.title;
+      if (stagePosterDesc) stagePosterDesc.textContent = poster.description;
+      if (stagePosterTools) stagePosterTools.textContent = poster.tools || 'Design Suite';
+      if (stagePosterFormat) stagePosterFormat.textContent = poster.format || 'Print & Digital Flyer';
+    }
+
+    function inspectCurrentStagePoster() {
+      if (!uploadedPosters.length || !posterLightboxModal) return;
+      const poster = uploadedPosters[currentStageIdx] || uploadedPosters[0];
+
+      if (lightboxCategory) lightboxCategory.textContent = poster.category || 'Poster';
+      if (lightboxTitle) lightboxTitle.textContent = poster.title;
+      if (lightboxDesc) lightboxDesc.textContent = poster.description;
+      if (lightboxFormat) lightboxFormat.textContent = poster.format || 'Print & Digital Flyer';
+      if (lightboxTools) lightboxTools.textContent = poster.tools || 'Design Suite';
+
+      if (lightboxArtworkStage) {
+        lightboxArtworkStage.innerHTML = poster.imageData
+          ? `<img src="${poster.imageData}" alt="${poster.title}" class="max-h-[62vh] w-auto object-contain rounded-xl" />`
+          : `<div class="p-8 font-serif text-2xl font-bold text-ink">${poster.title}</div>`;
+      }
+
+      if (lightboxDeleteWrap && deleteCustomPosterBtn) {
+        lightboxDeleteWrap.classList.remove('hidden');
+        deleteCustomPosterBtn.onclick = () => {
+          uploadedPosters.splice(currentStageIdx, 1);
+          if (currentStageIdx >= uploadedPosters.length) currentStageIdx = 0;
+          try {
+            localStorage.setItem('anuva_posters_flyers', JSON.stringify(uploadedPosters));
+          } catch (err) {}
+          closePosterLightbox();
+          renderStagePoster();
+        };
+      }
+
+      posterLightboxModal.classList.remove('hidden');
+      posterLightboxModal.classList.add('flex');
+    }
+
+    function closePosterLightbox() {
+      if (!posterLightboxModal) return;
+      posterLightboxModal.classList.add('hidden');
+      posterLightboxModal.classList.remove('flex');
+    }
+
+    if (lightboxBackdrop) {
+      lightboxBackdrop.addEventListener('click', closePosterLightbox);
+    }
+
+    function prevStagePoster() {
+      if (!uploadedPosters.length) return;
+      currentStageIdx = (currentStageIdx - 1 + uploadedPosters.length) % uploadedPosters.length;
+      renderStagePoster();
+    }
+
+    function nextStagePoster() {
+      if (!uploadedPosters.length) return;
+      currentStageIdx = (currentStageIdx + 1) % uploadedPosters.length;
+      renderStagePoster();
+    }
+
+    if (addPosterForm) {
+      addPosterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fileInput = document.getElementById('posterImageFile');
+        const titleInput = document.getElementById('posterTitleInput');
+        const categoryInput = document.getElementById('posterCategoryInput');
+        const toolsInput = document.getElementById('posterToolsInput');
+        const descInput = document.getElementById('posterDescInput');
+
+        const title = titleInput ? titleInput.value.trim() : '';
+        const category = categoryInput ? categoryInput.value.trim() : '';
+        const tools = toolsInput ? toolsInput.value.trim() : '';
+        const description = descInput ? descInput.value.trim() : '';
+        const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+
+        if (!title || !category || !tools || !description || !file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+          const imageData = evt.target && evt.target.result ? evt.target.result : '';
+          uploadedPosters.unshift({
+            title,
+            category,
+            tools,
+            description,
+            format: 'Print & Digital Flyer',
+            imageData
+          });
+          currentStageIdx = 0;
+          try {
+            localStorage.setItem('anuva_posters_flyers', JSON.stringify(uploadedPosters));
+          } catch (err) {}
+          renderStagePoster();
+          closeUploadPosterModal();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    renderStagePoster();
+
+    // ---------------------------------------------------------
+    // Headshot Portrait Upload & Persistence
+    // ---------------------------------------------------------
+    const headshotFileInput = document.getElementById('headshotFileInput');
+    const headshotPreviewImg = document.getElementById('headshotPreviewImg');
+    const headshotPlaceholder = document.getElementById('headshotPlaceholder');
+    const headshotBtnText = document.getElementById('headshotBtnText');
+    const resetHeadshotBtn = document.getElementById('resetHeadshotBtn');
+    const headshotTag = document.getElementById('headshotTag');
+
+    function applyHeadshotData(dataUrl) {
+      if (!headshotPreviewImg || !headshotPlaceholder) return;
+      if (dataUrl) {
+        headshotPreviewImg.src = dataUrl;
+        headshotPreviewImg.classList.remove('hidden');
+        headshotPlaceholder.classList.add('hidden');
+        if (headshotBtnText) headshotBtnText.textContent = 'Change Headshot';
+        if (resetHeadshotBtn) resetHeadshotBtn.classList.remove('hidden');
+        if (headshotTag) headshotTag.classList.add('hidden');
+      } else {
+        headshotPreviewImg.src = '';
+        headshotPreviewImg.classList.add('hidden');
+        headshotPlaceholder.classList.remove('hidden');
+        if (headshotBtnText) headshotBtnText.textContent = 'Upload Headshot';
+        if (resetHeadshotBtn) resetHeadshotBtn.classList.add('hidden');
+        if (headshotTag) headshotTag.classList.remove('hidden');
+      }
+    }
+
+    try {
+      const savedHeadshot = localStorage.getItem('anuva_headshot_portrait');
+      if (savedHeadshot) applyHeadshotData(savedHeadshot);
+    } catch (e) {}
+
+    if (headshotFileInput) {
+      headshotFileInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+          const result = evt.target && evt.target.result ? evt.target.result : '';
+          applyHeadshotData(result);
+          try {
+            localStorage.setItem('anuva_headshot_portrait', result);
+          } catch (err) {}
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    if (resetHeadshotBtn) {
+      resetHeadshotBtn.addEventListener('click', () => {
+        applyHeadshotData('');
+        if (headshotFileInput) headshotFileInput.value = '';
+        try {
+          localStorage.removeItem('anuva_headshot_portrait');
+        } catch (err) {}
+      });
+    }
+
+    // ---------------------------------------------------------
+    // Manhwa Rack Shelf & Cover Image Upload
+    // ---------------------------------------------------------
+    let manhwaBooks = [];
+    try {
+      const savedManhwa = localStorage.getItem('anuva_manhwa_rack');
+      if (savedManhwa) manhwaBooks = JSON.parse(savedManhwa);
+    } catch (e) {}
+
+    const manhwaModal = document.getElementById('manhwaModal');
+    const manhwaBackdrop = document.getElementById('manhwaBackdrop');
+    const addManhwaForm = document.getElementById('addManhwaForm');
+    const manhwaShelfGrid = document.getElementById('manhwaShelfGrid');
+
+    function openManhwaModal() {
+      if (!manhwaModal) return;
+      manhwaModal.classList.remove('hidden');
+      manhwaModal.classList.add('flex');
+    }
+
+    function closeManhwaModal() {
+      if (!manhwaModal) return;
+      manhwaModal.classList.add('hidden');
+      manhwaModal.classList.remove('flex');
+      if (addManhwaForm) addManhwaForm.reset();
+    }
+
+    if (manhwaBackdrop) {
+      manhwaBackdrop.addEventListener('click', closeManhwaModal);
+    }
+
+    function deleteManhwaBook(idx, e) {
+      if (e) e.stopPropagation();
+      manhwaBooks.splice(idx, 1);
+      try {
+        localStorage.setItem('anuva_manhwa_rack', JSON.stringify(manhwaBooks));
+      } catch (err) {}
+      renderManhwaShelf();
+    }
+
+    function renderManhwaShelf() {
+      if (!manhwaShelfGrid) return;
+
+      if (!manhwaBooks.length) {
+        manhwaShelfGrid.innerHTML = `
+          <div onclick="openManhwaModal()" class="col-span-full cursor-pointer p-8 rounded-2xl border-2 border-dashed border-ink/35 bg-white/80 hover:border-ink hover:bg-sakura-blush/40 transition-all text-center">
+            <p class="font-serif text-xl font-bold text-ink">Your Manhwa Rack is Empty</p>
+            <p class="font-mono text-xs text-ink/65 mt-1">Click "+ Add Manhwa Book" to upload a cover image and display it on the shelf.</p>
+          </div>
+        `;
+        return;
+      }
+
+      manhwaShelfGrid.innerHTML = manhwaBooks.map((book, idx) => `
+        <div class="group relative flex flex-col">
+          <div class="manhwa-book-card relative aspect-[2/3] w-full rounded-r-xl rounded-l-sm border-2 border-ink bg-white shadow-ink-sm overflow-hidden">
+            ${book.coverData
+              ? `<img src="${book.coverData}" alt="${book.title}" class="w-full h-full object-cover" />`
+              : `<div class="w-full h-full bg-sakura-blush flex items-center justify-center p-3 text-center font-serif font-bold text-ink">${book.title}</div>`
+            }
+            <button type="button" onclick="deleteManhwaBook(${idx}, event)" aria-label="Remove manhwa book" class="opacity-0 group-hover:opacity-100 transition-opacity absolute top-2 right-2 w-6 h-6 rounded-full bg-ink text-white hover:bg-red-600 font-mono text-[11px] flex items-center justify-center">
+              ✕
+            </button>
+          </div>
+          <div class="pt-3 px-0.5">
+            <h4 class="font-serif text-base font-bold text-ink leading-snug truncate">${book.title}</h4>
+            ${book.genre ? `<p class="font-mono text-[10px] text-ink/65 truncate mt-0.5">${book.genre}</p>` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    if (addManhwaForm) {
+      addManhwaForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fileInput = document.getElementById('manhwaCoverFile');
+        const titleInput = document.getElementById('manhwaTitleInput');
+        const genreInput = document.getElementById('manhwaGenreInput');
+
+        const title = titleInput ? titleInput.value.trim() : '';
+        const genre = genreInput ? genreInput.value.trim() : '';
+        const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+
+        if (!title || !file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+          const coverData = evt.target && evt.target.result ? evt.target.result : '';
+          manhwaBooks.unshift({ title, genre, coverData });
+          try {
+            localStorage.setItem('anuva_manhwa_rack', JSON.stringify(manhwaBooks));
+          } catch (err) {
+            // Keep in memory if localStorage quota is exceeded
+          }
+          renderManhwaShelf();
+          closeManhwaModal();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    renderManhwaShelf();
+
+    // ---------------------------------------------------------
+    // Game Rack: PS5 Cases + Side Controller
+    // ---------------------------------------------------------
+    let ps5Games = [];
+    try {
+      const savedGames = localStorage.getItem('anuva_ps5_games');
+      if (savedGames) ps5Games = JSON.parse(savedGames);
+    } catch (e) {}
+
+    let selectedGameIdx = 0;
+    const addGameFormPanel = document.getElementById('addGameFormPanel');
+    const ps5CasesGrid = document.getElementById('ps5CasesGrid');
+    const gameMonitorScreen = document.getElementById('gameMonitorScreen');
+
+    function toggleGameForm() {
+      if (addGameFormPanel) addGameFormPanel.classList.toggle('hidden');
+    }
+
+    function selectPs5Game(idx) {
+      selectedGameIdx = idx;
+      renderPs5Cases();
+    }
+
+    function deletePs5Game(idx, e) {
+      if (e) e.stopPropagation();
+      ps5Games.splice(idx, 1);
+      if (selectedGameIdx >= ps5Games.length) selectedGameIdx = 0;
+      try {
+        localStorage.setItem('anuva_ps5_games', JSON.stringify(ps5Games));
+      } catch (err) {}
+      renderPs5Cases();
+    }
+
+    function renderMonitorDisplay(game) {
+      if (!gameMonitorScreen) return;
+
+      if (!game) {
+        gameMonitorScreen.innerHTML = `
+          <div class="w-full h-full bg-gradient-to-br from-[#121620] via-[#0b0e14] to-[#1a1319] flex flex-col items-center justify-center p-6 text-center">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-sakura mb-2">NO SIGNAL / STANDALONE</span>
+            <p class="font-serif text-xl sm:text-2xl font-bold text-white">Select a Game Case Above</p>
+            <p class="font-mono text-[11px] text-white/60 mt-1">Press any PS5 game on the wall rack to display its monitor pic on screen.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const monitorImgSrc = game.monitorData || game.coverData || '';
+
+      if (monitorImgSrc) {
+        gameMonitorScreen.innerHTML = `
+          <img src="${monitorImgSrc}" alt="${game.title} on Monitor" class="w-full h-full object-cover" />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent p-3.5 sm:p-4 flex items-end justify-between gap-3">
+            <div class="min-w-0">
+              <span class="font-mono text-[9px] uppercase tracking-widest text-sakura block">NOW DISPLAYING • PS5</span>
+              <p class="font-serif text-lg sm:text-2xl font-bold text-white truncate">${game.title}</p>
+            </div>
+            ${game.genre ? `<span class="font-mono text-[10px] px-2.5 py-1 rounded-full bg-white/15 backdrop-blur-xs text-white border border-white/20 shrink-0">${game.genre}</span>` : ''}
+          </div>
+        `;
+      } else {
+        gameMonitorScreen.innerHTML = `
+          <div class="w-full h-full bg-gradient-to-br from-[#162844] via-[#0e1524] to-[#261420] p-6 flex flex-col items-center justify-center text-center relative">
+            <span class="font-mono text-[10px] uppercase tracking-widest px-3 py-1 rounded-full bg-sakura/20 text-sakura border border-sakura/40 mb-3">${game.genre || 'PS5 GAME'}</span>
+            <h4 class="font-serif text-2xl sm:text-4xl font-bold text-white">${game.title}</h4>
+            <p class="font-mono text-[11px] text-white/60 mt-2">Upload a monitor display pic when adding a game to show it on screen</p>
+          </div>
+        `;
+      }
+    }
+
+    function renderPs5Cases() {
+      if (!ps5CasesGrid) return;
+
+      if (!ps5Games.length) {
+        renderMonitorDisplay(null);
+        ps5CasesGrid.innerHTML = `
+          <div onclick="toggleGameForm()" class="col-span-full cursor-pointer p-7 rounded-2xl border border-dashed border-white/25 bg-[#1d2028] hover:bg-[#252934] transition-colors text-center">
+            <p class="font-serif text-lg font-bold text-white">Your PS5 Wall Rack is Empty</p>
+            <p class="font-mono text-[11px] text-white/65 mt-1">Click "+ Add PS5 Game" to place cases on the rack above your desk.</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (selectedGameIdx < 0 || selectedGameIdx >= ps5Games.length) selectedGameIdx = 0;
+      const activeGame = ps5Games[selectedGameIdx];
+      renderMonitorDisplay(activeGame);
+
+      ps5CasesGrid.innerHTML = ps5Games.map((game, idx) => {
+        const isSelected = idx === selectedGameIdx;
+        return `
+          <div onclick="selectPs5Game(${idx})" class="cursor-pointer group relative flex flex-col transition-transform duration-200 ${isSelected ? '-translate-y-2' : 'hover:-translate-y-1'}">
+            <!-- PS5-style White Top Header Band + Blue/Dark Case Body -->
+            <div class="aspect-[3/4] w-full rounded-xl overflow-hidden border-2 ${isSelected ? 'border-sakura shadow-[0_0_0_2px_#F27D9C]' : 'border-white/25'} bg-[#0f294a] flex flex-col">
+              <div class="bg-white text-ink px-2.5 py-1 flex items-center justify-between border-b border-ink/20 shrink-0">
+                <span class="font-mono text-[9px] font-extrabold tracking-widest uppercase">PS5</span>
+                <span class="font-mono text-[8px] text-ink/60 uppercase">DISC</span>
+              </div>
+              <div class="relative flex-1 overflow-hidden">
+                ${game.coverData
+                  ? `<img src="${game.coverData}" alt="${game.title}" class="w-full h-full object-cover" />`
+                  : `<div class="w-full h-full bg-gradient-to-b from-[#163a6b] to-[#0b172a] p-3 flex flex-col justify-between text-white">
+                      <span class="font-mono text-[9px] uppercase tracking-wider text-sakura">${game.genre || 'PS5 Title'}</span>
+                      <span class="font-serif text-sm sm:text-base font-bold leading-tight">${game.title}</span>
+                    </div>`
+                }
+                <button type="button" onclick="deletePs5Game(${idx}, event)" aria-label="Remove PS5 game" class="opacity-0 group-hover:opacity-100 transition-opacity absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-ink/90 text-white hover:bg-red-600 font-mono text-[10px] flex items-center justify-center">
+                  ✕
+                </button>
+              </div>
+            </div>
+            <p class="mt-2 font-serif text-sm font-bold text-white truncate">${game.title}</p>
+            ${game.genre ? `<p class="font-mono text-[10px] text-white/60 truncate">${game.genre}</p>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    if (addGameFormPanel) {
+      addGameFormPanel.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const titleInput = document.getElementById('gameTitleInput');
+        const genreInput = document.getElementById('gameGenreInput');
+        const coverInput = document.getElementById('gameCoverFileInput');
+        const monitorInput = document.getElementById('gameMonitorFileInput');
+
+        const title = titleInput ? titleInput.value.trim() : '';
+        const genre = genreInput ? genreInput.value.trim() : '';
+        const coverFile = coverInput && coverInput.files ? coverInput.files[0] : null;
+        const monitorFile = monitorInput && monitorInput.files ? monitorInput.files[0] : null;
+
+        if (!title) return;
+
+        const readFileAsDataUrl = (file) => new Promise((resolve) => {
+          if (!file) return resolve('');
+          const reader = new FileReader();
+          reader.onload = (evt) => resolve(evt.target && evt.target.result ? evt.target.result : '');
+          reader.onerror = () => resolve('');
+          reader.readAsDataURL(file);
+        });
+
+        Promise.all([readFileAsDataUrl(coverFile), readFileAsDataUrl(monitorFile)]).then(([coverData, monitorData]) => {
+          ps5Games.unshift({ title, genre, coverData, monitorData });
+          selectedGameIdx = 0;
+          try {
+            localStorage.setItem('anuva_ps5_games', JSON.stringify(ps5Games));
+          } catch (err) {}
+          renderPs5Cases();
+          addGameFormPanel.reset();
+          addGameFormPanel.classList.add('hidden');
+        });
+      });
+    }
+
+    renderPs5Cases();
+
+    // ---------------------------------------------------------
+    // My Jams: Playlist, Spotify Embed & Audio Player
+    // ---------------------------------------------------------
+    const musicFormPanel = document.getElementById('musicFormPanel');
+    const songTitleInput = document.getElementById('songTitleInput');
+    const songArtistInput = document.getElementById('songArtistInput');
+    const songVibeInput = document.getElementById('songVibeInput');
+    const songSpotifyUrlInput = document.getElementById('songSpotifyUrlInput');
+    const songAudioFileInput = document.getElementById('songAudioFileInput');
+    const musicTrackList = document.getElementById('musicTrackList');
+    const nowSpinningTitle = document.getElementById('nowSpinningTitle');
+    const nowSpinningArtist = document.getElementById('nowSpinningArtist');
+    const playlistCountBadge = document.getElementById('playlistCountBadge');
+    const jamsAudioElement = document.getElementById('jamsAudioElement');
+    const playPauseIcon = document.getElementById('playPauseIcon');
+    const playPauseLabel = document.getElementById('playPauseLabel');
+    const toggleVinylSpinBtn = document.getElementById('toggleVinylSpinBtn');
+    const prevTrackBtn = document.getElementById('prevTrackBtn');
+    const nextTrackBtn = document.getElementById('nextTrackBtn');
+    const audioSeekBar = document.getElementById('audioSeekBar');
+    const audioCurrentTime = document.getElementById('audioCurrentTime');
+    const audioDurationTime = document.getElementById('audioDurationTime');
+    const spotifyEmbedWrapper = document.getElementById('spotifyEmbedWrapper');
+    const spotifyEmbedIframe = document.getElementById('spotifyEmbedIframe');
+    const spotifyEmbedHint = document.getElementById('spotifyEmbedHint');
+    const spotifyOpenExternalLink = document.getElementById('spotifyOpenExternalLink');
+
+    const playlistCoverFileInput = document.getElementById('playlistCoverFileInput');
+    const playlistCoverImg = document.getElementById('playlistCoverImg');
+    const playlistCoverPlaceholder = document.getElementById('playlistCoverPlaceholder');
+    const resetPlaylistCoverBtn = document.getElementById('resetPlaylistCoverBtn');
+
+    const defaultTracks = [
+      {
+        title: 'Cherry Blossom Breeze',
+        artist: 'Anuva’s Study Mix',
+        vibe: 'Calm Focus',
+        spotifyUrl: '',
+        audioSrc: ''
+      },
+      {
+        title: 'Late Night Operations',
+        artist: 'Isenberg Sessions',
+        vibe: 'Groove',
+        spotifyUrl: '',
+        audioSrc: ''
+      }
+    ];
+
+    let playlistTracks = [...defaultTracks];
+    try {
+      const savedTracks = localStorage.getItem('anuva_jams_playlist');
+      if (savedTracks) {
+        const parsed = JSON.parse(savedTracks);
+        if (Array.isArray(parsed) && parsed.length) {
+          playlistTracks = parsed;
+        }
+      }
+    } catch (err) {}
+
+    let activeTrackIdx = 0;
+    let isPlayingAudio = false;
+
+    // Expose toggleMusicForm globally for inline onclick handlers
+    window.toggleMusicForm = function () {
+      if (!musicFormPanel) return;
+      musicFormPanel.classList.toggle('hidden');
+      if (!musicFormPanel.classList.contains('hidden') && songTitleInput) {
+        songTitleInput.focus();
+      }
+    };
+
+    function formatTime(seconds) {
+      if (!isFinite(seconds) || seconds < 0) return '0:00';
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    function parseSpotifyMedia(rawUrl) {
+      if (!rawUrl || typeof rawUrl !== 'string') return null;
+      const trimmed = rawUrl.trim();
+      if (!trimmed) return null;
+
+      // Handle spotify:track:ID / spotify:playlist:ID / spotify:album:ID / spotify:episode:ID
+      const uriMatch = trimmed.match(/^spotify:(track|playlist|album|episode|show):([a-zA-Z0-9]+)/i);
+      if (uriMatch) {
+        const kind = uriMatch[1].toLowerCase();
+        const id = uriMatch[2];
+        return {
+          embedUrl: `https://open.spotify.com/embed/${kind}/${id}`,
+          openUrl: `https://open.spotify.com/${kind}/${id}`
+        };
+      }
+
+      try {
+        const parsed = new URL(trimmed);
+        if (parsed.hostname.includes('spotify.com')) {
+          const segments = parsed.pathname.split('/').filter(Boolean).filter(seg => !/^intl-[a-z]{2}(-[a-z]{2})?$/i.test(seg));
+          const embedIdx = segments.indexOf('embed');
+          const cleanSegs = embedIdx >= 0 ? segments.slice(embedIdx + 1) : segments;
+          if (cleanSegs.length >= 2) {
+            const kind = cleanSegs[0].toLowerCase();
+            const id = cleanSegs[1];
+            return {
+              embedUrl: `https://open.spotify.com/embed/${kind}/${id}`,
+              openUrl: `https://open.spotify.com/${kind}/${id}`
+            };
+          }
+        }
+      } catch (err) {}
+
+      return null;
+    }
+
+    function updatePlayPauseUI() {
+      if (playPauseIcon) playPauseIcon.textContent = isPlayingAudio ? '⏸' : '▶';
+      if (playPauseLabel) playPauseLabel.textContent = isPlayingAudio ? 'Pause' : 'Play';
+    }
+
+    function updateSpotifyPlayer(rawUrl) {
+      if (!spotifyEmbedWrapper || !spotifyEmbedIframe) return;
+      const spotifyInfo = parseSpotifyMedia(rawUrl);
+      if (spotifyInfo) {
+        spotifyEmbedIframe.src = spotifyInfo.embedUrl;
+        spotifyEmbedWrapper.classList.remove('hidden');
+        if (spotifyEmbedHint) {
+          spotifyEmbedHint.textContent = 'Spotify Embed Player — press Play inside the Spotify widget';
+        }
+        if (spotifyOpenExternalLink) {
+          spotifyOpenExternalLink.href = spotifyInfo.openUrl;
+        }
+      } else {
+        spotifyEmbedIframe.src = '';
+        spotifyEmbedWrapper.classList.add('hidden');
+      }
+    }
+
+    function loadTrack(idx, autoPlay = false) {
+      if (!playlistTracks.length) {
+        activeTrackIdx = 0;
+        isPlayingAudio = false;
+        updatePlayPauseUI();
+        if (nowSpinningTitle) nowSpinningTitle.textContent = "Uva's mix";
+        if (nowSpinningArtist) nowSpinningArtist.textContent = 'Add a track to start listening';
+        if (jamsAudioElement) {
+          jamsAudioElement.pause();
+          jamsAudioElement.removeAttribute('src');
+        }
+        updateSpotifyPlayer('');
+        renderPlaylistTracks();
+        return;
+      }
+
+      activeTrackIdx = ((idx % playlistTracks.length) + playlistTracks.length) % playlistTracks.length;
+      const track = playlistTracks[activeTrackIdx];
+
+      if (nowSpinningTitle) nowSpinningTitle.textContent = track.title || "Uva's mix";
+      if (nowSpinningArtist) {
+        nowSpinningArtist.textContent = track.vibe ? `${track.artist} • ${track.vibe}` : track.artist;
+      }
+
+      const rawMedia = track.spotifyUrl || '';
+      const spotifyInfo = parseSpotifyMedia(rawMedia);
+
+      if (spotifyInfo) {
+        if (jamsAudioElement) {
+          jamsAudioElement.pause();
+          jamsAudioElement.removeAttribute('src');
+        }
+        isPlayingAudio = false;
+        updatePlayPauseUI();
+        updateSpotifyPlayer(rawMedia);
+      } else {
+        updateSpotifyPlayer('');
+        const audioSource = track.audioSrc || (rawMedia && !rawMedia.includes('spotify.com') && !rawMedia.startsWith('spotify:') ? rawMedia : '');
+        if (jamsAudioElement) {
+          if (audioSource) {
+            jamsAudioElement.src = audioSource;
+            if (autoPlay) {
+              jamsAudioElement.play().then(() => {
+                isPlayingAudio = true;
+                updatePlayPauseUI();
+                renderPlaylistTracks();
+              }).catch(() => {
+                isPlayingAudio = false;
+                updatePlayPauseUI();
+              });
+            } else {
+              isPlayingAudio = false;
+              updatePlayPauseUI();
+            }
+          } else {
+            jamsAudioElement.pause();
+            jamsAudioElement.removeAttribute('src');
+            isPlayingAudio = false;
+            updatePlayPauseUI();
+          }
+        }
+      }
+
+      renderPlaylistTracks();
+    }
+
+    function selectAndPlayTrack(idx) {
+      loadTrack(idx, true);
+    }
+
+    function deleteTrack(idx, e) {
+      if (e) e.stopPropagation();
+      playlistTracks.splice(idx, 1);
+      try {
+        localStorage.setItem('anuva_jams_playlist', JSON.stringify(playlistTracks));
+      } catch (err) {}
+      if (activeTrackIdx >= playlistTracks.length) {
+        activeTrackIdx = 0;
+      }
+      loadTrack(activeTrackIdx, false);
+    }
+
+    function renderPlaylistTracks() {
+      if (playlistCountBadge) {
+        playlistCountBadge.textContent = `${playlistTracks.length} ${playlistTracks.length === 1 ? 'Track' : 'Tracks'}`;
+      }
+      if (!musicTrackList) return;
+
+      if (!playlistTracks.length) {
+        musicTrackList.innerHTML = `
+          <div class="p-4 rounded-xl border border-dashed border-white/20 text-center font-mono text-xs text-white/60">
+            No tracks in Uva's mix yet. Click "+ Add Song" above to add one.
+          </div>
+        `;
+        return;
+      }
+
+      musicTrackList.innerHTML = playlistTracks.map((track, idx) => {
+        const isCurrent = idx === activeTrackIdx;
+        const hasSpotify = Boolean(parseSpotifyMedia(track.spotifyUrl || ''));
+        const hasAudio = Boolean(track.audioSrc || (track.spotifyUrl && !hasSpotify));
+        const badgeText = hasSpotify ? 'Spotify' : (hasAudio ? 'Audio' : 'Queued');
+
+        return `
+          <div onclick="selectAndPlayTrack(${idx})" class="cursor-pointer group flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl border transition-colors ${isCurrent ? 'bg-white/15 border-sakura text-white' : 'bg-[#191919] border-white/10 text-white/85 hover:bg-white/10'}">
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="font-mono text-xs w-5 text-center ${isCurrent ? 'text-sakura font-bold' : 'text-white/50'}">
+                ${isCurrent && isPlayingAudio ? '♪' : idx + 1}
+              </span>
+              <div class="min-w-0">
+                <p class="font-serif text-base font-bold truncate ${isCurrent ? 'text-white' : 'text-white/95'}">${track.title}</p>
+                <p class="font-mono text-[11px] text-white/60 truncate">
+                  ${track.artist}${track.vibe ? ` • ${track.vibe}` : ''}
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2.5 shrink-0">
+              <span class="font-mono text-[10px] px-2 py-0.5 rounded-full ${hasSpotify ? 'bg-[#1DB954]/20 text-[#4ade80] border border-[#1DB954]/40' : 'bg-white/10 text-white/75'}">
+                ${badgeText}
+              </span>
+              <button type="button" onclick="deleteTrack(${idx}, event)" aria-label="Remove track" class="opacity-70 group-hover:opacity-100 text-white/60 hover:text-red-400 font-mono text-xs px-1.5 py-0.5 transition-colors">
+                ✕
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    if (musicFormPanel) {
+      musicFormPanel.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const title = songTitleInput ? songTitleInput.value.trim() : '';
+        const artist = songArtistInput ? songArtistInput.value.trim() : '';
+        const vibe = songVibeInput ? songVibeInput.value.trim() : '';
+        const spotifyUrl = songSpotifyUrlInput ? songSpotifyUrlInput.value.trim() : '';
+        const audioFile = songAudioFileInput && songAudioFileInput.files ? songAudioFileInput.files[0] : null;
+
+        if (!title || !artist) return;
+
+        const finishAddTrack = (audioDataUrl) => {
+          playlistTracks.unshift({
+            title,
+            artist,
+            vibe,
+            spotifyUrl,
+            audioSrc: audioDataUrl || ''
+          });
+          try {
+            localStorage.setItem('anuva_jams_playlist', JSON.stringify(playlistTracks));
+          } catch (err) {
+            // Large audio files may exceed localStorage quota; keep in active session
+          }
+          activeTrackIdx = 0;
+          loadTrack(0, Boolean(audioDataUrl || (!spotifyUrl && false)));
+          musicFormPanel.reset();
+          musicFormPanel.classList.add('hidden');
+        };
+
+        if (audioFile) {
+          const reader = new FileReader();
+          reader.onload = function (evt) {
+            finishAddTrack(evt.target && evt.target.result ? evt.target.result : '');
+          };
+          reader.readAsDataURL(audioFile);
+        } else {
+          finishAddTrack('');
+        }
+      });
+    }
+
+    if (toggleVinylSpinBtn) {
+      toggleVinylSpinBtn.addEventListener('click', () => {
+        if (!playlistTracks.length) return;
+        const track = playlistTracks[activeTrackIdx];
+        const spotifyInfo = parseSpotifyMedia(track ? track.spotifyUrl : '');
+
+        if (spotifyInfo) {
+          if (spotifyEmbedWrapper) spotifyEmbedWrapper.classList.remove('hidden');
+          if (spotifyEmbedHint) {
+            spotifyEmbedHint.textContent = 'Spotify track loaded below — click Play inside the Spotify player';
+          }
+          return;
+        }
+
+        if (jamsAudioElement && jamsAudioElement.src) {
+          if (jamsAudioElement.paused) {
+            jamsAudioElement.play().then(() => {
+              isPlayingAudio = true;
+              updatePlayPauseUI();
+              renderPlaylistTracks();
+            }).catch(() => {});
+          } else {
+            jamsAudioElement.pause();
+            isPlayingAudio = false;
+            updatePlayPauseUI();
+            renderPlaylistTracks();
+          }
+        } else {
+          isPlayingAudio = !isPlayingAudio;
+          updatePlayPauseUI();
+          renderPlaylistTracks();
+        }
+      });
+    }
+
+    if (prevTrackBtn) {
+      prevTrackBtn.addEventListener('click', () => {
+        if (!playlistTracks.length) return;
+        loadTrack(activeTrackIdx - 1, true);
+      });
+    }
+
+    if (nextTrackBtn) {
+      nextTrackBtn.addEventListener('click', () => {
+        if (!playlistTracks.length) return;
+        loadTrack(activeTrackIdx + 1, true);
+      });
+    }
+
+    if (jamsAudioElement) {
+      jamsAudioElement.addEventListener('loadedmetadata', () => {
+        if (audioDurationTime) audioDurationTime.textContent = formatTime(jamsAudioElement.duration);
+        if (audioSeekBar) audioSeekBar.max = jamsAudioElement.duration || 100;
+      });
+
+      jamsAudioElement.addEventListener('timeupdate', () => {
+        if (audioCurrentTime) audioCurrentTime.textContent = formatTime(jamsAudioElement.currentTime);
+        if (audioSeekBar && jamsAudioElement.duration) {
+          audioSeekBar.value = jamsAudioElement.currentTime;
+        }
+      });
+
+      jamsAudioElement.addEventListener('ended', () => {
+        isPlayingAudio = false;
+        updatePlayPauseUI();
+        if (playlistTracks.length > 1) {
+          loadTrack(activeTrackIdx + 1, true);
+        } else {
+          renderPlaylistTracks();
+        }
+      });
+    }
+
+    if (audioSeekBar && jamsAudioElement) {
+      audioSeekBar.addEventListener('input', () => {
+        if (jamsAudioElement.duration) {
+          jamsAudioElement.currentTime = Number(audioSeekBar.value);
+        }
+      });
+    }
+
+    // Playlist cover image upload & persistence
+    function applyPlaylistCover(dataUrl) {
+      if (!playlistCoverImg || !playlistCoverPlaceholder) return;
+      if (dataUrl) {
+        playlistCoverImg.src = dataUrl;
+        playlistCoverImg.classList.remove('hidden');
+        playlistCoverPlaceholder.classList.add('hidden');
+        if (resetPlaylistCoverBtn) resetPlaylistCoverBtn.classList.remove('hidden');
+      } else {
+        playlistCoverImg.src = '';
+        playlistCoverImg.classList.add('hidden');
+        playlistCoverPlaceholder.classList.remove('hidden');
+        if (resetPlaylistCoverBtn) resetPlaylistCoverBtn.classList.add('hidden');
+      }
+    }
+
+    try {
+      const savedCover = localStorage.getItem('anuva_jams_cover');
+      if (savedCover) applyPlaylistCover(savedCover);
+    } catch (err) {}
+
+    if (playlistCoverFileInput) {
+      playlistCoverFileInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+          const result = evt.target && evt.target.result ? evt.target.result : '';
+          applyPlaylistCover(result);
+          try {
+            localStorage.setItem('anuva_jams_cover', result);
+          } catch (err) {}
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    if (resetPlaylistCoverBtn) {
+      resetPlaylistCoverBtn.addEventListener('click', () => {
+        applyPlaylistCover('');
+        if (playlistCoverFileInput) playlistCoverFileInput.value = '';
+        try {
+          localStorage.removeItem('anuva_jams_cover');
+        } catch (err) {}
+      });
+    }
+
+    loadTrack(0, false);
+
+    // ---------------------------------------------------------
+    // Mobile Menu & Contact Form Helpers
+    // ---------------------------------------------------------
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+      document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    }
+
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
+    const emailAddressText = document.getElementById('emailAddressText');
+    const copyFeedback = document.getElementById('copyFeedback');
+    if (copyEmailBtn && emailAddressText) {
+      copyEmailBtn.addEventListener('click', () => {
+        const emailText = emailAddressText.textContent.trim();
+        const tempInput = document.createElement('input');
+        tempInput.value = emailText;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        try {
+          document.execCommand('copy');
+          if (copyFeedback) {
+            copyFeedback.classList.remove('hidden');
+            setTimeout(() => copyFeedback.classList.add('hidden'), 2500);
+          }
+        } catch (e) {}
+        document.body.removeChild(tempInput);
+      });
+    }
+
+    const contactForm = document.getElementById('contactForm');
+    const formConfirmation = document.getElementById('formConfirmation');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (formConfirmation) {
+          formConfirmation.classList.remove('hidden');
+          formConfirmation.classList.add('flex');
+        }
+        contactForm.reset();
+      });
+    }
+
+    const canvas = document.getElementById('sakuraCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let petalsActive = true;
+    let animationFrameId = null;
+    let petals = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function createPetal() {
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * -canvas.height,
+        size: 5 + Math.random() * 5,
+        speedY: 0.55 + Math.random() * 0.85,
+        speedX: -0.35 + Math.random() * 0.7,
+        angle: Math.random() * Math.PI * 2,
+        spin: -0.02 + Math.random() * 0.04,
+        swayOffset: Math.random() * 100,
+        opacity: 0.45 + Math.random() * 0.45,
+        color: Math.random() > 0.4 ? '#F27D9C' : '#F48FB1'
+      };
+    }
+
+    function initPetals() {
+      const count = window.innerWidth < 640 ? 14 : 24;
+      petals = Array.from({ length: count }, () => {
+        const p = createPetal();
+        p.y = Math.random() * canvas.height;
+        return p;
+      });
+    }
+
+    function drawPetal(p) {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle);
+      ctx.globalAlpha = p.opacity;
+      ctx.fillStyle = p.color;
+
+      ctx.beginPath();
+      ctx.moveTo(0, -p.size);
+      ctx.bezierCurveTo(p.size * 0.8, -p.size * 0.6, p.size * 0.9, p.size * 0.5, 0, p.size);
+      ctx.bezierCurveTo(-p.size * 0.9, p.size * 0.5, -p.size * 0.8, -p.size * 0.6, 0, -p.size);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function animatePetals() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (!petalsActive) return;
+
+      for (let i = 0; i < petals.length; i++) {
+        const p = petals[i];
+        p.y += p.speedY;
+        p.x += p.speedX + Math.sin((p.y + p.swayOffset) * 0.015) * 0.35;
+        p.angle += p.spin;
+
+        if (p.y > canvas.height + 15) {
+          petals[i] = createPetal();
+          petals[i].y = -12;
+        }
+        drawPetal(p);
+      }
+
+      animationFrameId = requestAnimationFrame(animatePetals);
+    }
+
+    window.onload = function () {
+      initPetals();
+      animatePetals();
+    };
+  </script>
+</body>
+</html>
